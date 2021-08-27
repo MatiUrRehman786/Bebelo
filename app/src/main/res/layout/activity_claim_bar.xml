@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor_claim"
+    tools:context=".Activities.ClaimBar">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/appBar"
+            layout="@layout/app_bar_single_side"/>
+
+        <RelativeLayout
+            android:layout_below="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:src="@drawable/calim_bar_icon"
+                    android:adjustViewBounds="true"/>
+
+                <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_170sdp">
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Go to settings > Add your bar\nEnter address and all relevant info"
+                            android:textSize="@dimen/_14sdp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="We'll do a quick check and then remove the previous bar page from Bebelo"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/light_black"
+                            android:textStyle="normal"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

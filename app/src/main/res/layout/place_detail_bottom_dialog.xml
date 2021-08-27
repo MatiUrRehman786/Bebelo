@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounder_corner_white_two_top">
+
+        <View
+            android:id="@+id/line1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="50dp"
+            android:layout_height="3dp"
+            android:background="@drawable/rounder_corner_gray_20"/>
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:fontFamily="@font/cabin_regular"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Perrachica Lavapies"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
+                android:maxLines="1"/>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:fontFamily="@font/cabin_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Open"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="normal"
+                        android:maxLines="1"/>
+
+                    <TextView
+                        android:fontFamily="@font/cabin_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - Close at 01:00"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="normal"
+                        android:maxLines="1"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_20sdp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/red_glow"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:fontFamily="@font/cabin_regular"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Free table"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/blue_glow"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"/>
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/mic_"/>
+
+                    <TextView
+                        android:fontFamily="@font/cabin_regular"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DJ Burrito playing! Chupito gratis con tu Copa!"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                app:riv_corner_radius_top_left="@dimen/_10sdp"
+                app:riv_corner_radius_top_right="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/image_bottom_dialog">
+            </com.makeramen.roundedimageview.RoundedImageView>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

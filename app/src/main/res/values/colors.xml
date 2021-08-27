@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFFFFF</color>
+    <color name="purple_500">#FFFFFF</color>
+    <color name="purple_700">#FFFFFF</color>
+    <color name="teal_200">#FFFFFF</color>
+    <color name="teal_700">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+
+    <color name="whiteOpacity">#66FFFFFF</color>
+
+    ////colos
+    <color name="light_black">#494949</color>
+    <color name="light_black1">#818181</color>
+    <color name="light_gray">#F1F1F1</color>
+    <color name="dark_gray">#A1A1A1</color>
+    <color name="dark_gray1">#B8B8B8</color>
+    <color name="light_grayy">#D8D8D8</color>
+    <color name="green">#1B9F06</color>
+    <color name="button_green">#038D8A</color>
+    <color name="backgroundColor">#F1F1F1</color>
+    <color name="backgroundColor_claim">#F7F9FA</color>
+    <color name="lightBlue">#65AFCE</color>
+    <color name="red_colors">#F02B2B</color>
+    <color name="blueColor">#0699F2</color>
+    <color name="greenish_blue">#04D1CD</color>
+    <color name="greenish_blue_dark">#03aeab</color>
+    <color name="gray_dark2">#464646</color>
+    <color name="blue">#03588B</color>
+    <color name="item_bottle">#FDFDFD</color>
+    <color name="white">#FFFFFF</color>
+</resources>

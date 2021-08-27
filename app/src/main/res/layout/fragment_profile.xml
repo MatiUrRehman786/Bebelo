@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.BarProfile">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/appBar"
+            layout="@layout/bar_profile_app_bar"/>
+
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_below="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:background="@color/backgroundColor"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp">
+                <com.smb.glowbutton.NeonButton
+                    android:id="@+id/btnBlueGlow"
+                    android:visibility="invisible"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_75sdp"
+                    app:nb_cornerRadius="10dp"
+                    android:layout_marginRight="@dimen/_9sdp"
+                    android:layout_marginLeft="@dimen/_9sdp"
+                    app:nb_gradientEnd="#1BB8FC"
+                    app:nb_gradientStart="#1BB8FC"
+                    app:nb_textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <RelativeLayout
+                        android:id="@+id/firstRectLay"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/rectangle_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_65sdp">
+                        <LinearLayout
+                            android:layout_toLeftOf="@+id/rightLay"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
+                                android:src="@drawable/ellipse_blue"/>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/AnunciarET"
+                                    android:background="@color/white"
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Announce something!"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/_10sdp"/>
+
+                                <TextView
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Active during 4 hours, or until deleted"
+                                    android:textColor="@color/dark_gray"
+                                    android:textStyle="normal"
+                                    android:textSize="@dimen/_10sdp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rightLay"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true">
+                            <RelativeLayout
+                                android:layout_centerInParent="true"
+                                android:visibility="invisible"
+                                android:id="@+id/anunciarLay"
+                                android:background="@drawable/rounder_corner_light_blue"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="@dimen/_25sdp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Anunciar"
+                                    android:textSize="@dimen/_8sdp"
+                                    android:textStyle="normal"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@color/white"/>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/plusBT"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:layout_centerInParent="true"
+                                android:visibility="visible">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/plus_icon" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:visibility="gone"
+                                android:layout_centerInParent="true"
+                                android:id="@+id/btnDelete"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp">
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/delete"/>
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp">
+                    <com.smb.glowbutton.NeonButton
+                        android:id="@+id/btnRedGlow"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_75sdp"
+                        app:nb_cornerRadius="10dp"
+                        android:layout_marginRight="@dimen/_9sdp"
+                        android:layout_marginLeft="@dimen/_9sdp"
+                        app:nb_gradientEnd="#F02B2B"
+                        app:nb_gradientStart="#F02B2B"
+                        app:nb_textStyle="normal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <RelativeLayout
+                            android:id="@+id/secRectLay"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_65sdp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@drawable/rectangle_white">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/_20sdp"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_toLeftOf="@+id/rightLay1"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_35sdp"
+                                    android:layout_height="@dimen/_35sdp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ellipse_red" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/cabin_regular"
+                                        android:text="Free table on terrace"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/cabin_regular"
+                                        android:text="Active during 5 minutes"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:textStyle="normal" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rightLay1"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/_15sdp">
+
+                                <com.suke.widget.SwitchButton
+                                    android:id="@+id/switchButton"
+                                    android:layout_width="45dp"
+                                    android:layout_height="25dp"
+                                    android:layout_centerInParent="true"
+                                    app:sb_background="@color/light_black"
+                                    app:sb_checked="false"
+                                    app:sb_checked_color="@color/red_colors"
+                                    app:sb_checkline_color="@android:color/transparent"
+                                    app:sb_uncheck_color="@color/light_black"
+                                    app:sb_uncheckcircle_color="@color/light_black" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:src="@drawable/image_bottom_dialog"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+
+                <include
+                    android:id="@+id/firstItem"
+                    layout="@layout/drink_item"/>
+
+                <include
+                    android:id="@+id/secItem"
+                    layout="@layout/drink_item"/>
+
+                <include
+                    android:id="@+id/thirdItem"
+                    layout="@layout/drink_item"/>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_drinks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

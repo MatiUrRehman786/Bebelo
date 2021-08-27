@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBFBFB">
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/app_bar_single_side_login" />
+    <ScrollView
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_weight="1.4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:src="@drawable/login_person_logo"
+                            android:adjustViewBounds="true"/>
+                        <ImageView
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_gravity="center"
+                            android:layout_width="@dimen/_160sdp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/bar_login_logo"
+                            android:adjustViewBounds="true"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginRight="@dimen/_30sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <RelativeLayout
+                                android:id="@+id/leftIcon"
+                                android:background="@drawable/circle_green"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp">
+                                <ImageView
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:src="@drawable/person"/>
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/bg_rect"
+                                android:fontFamily="@font/cabin_regular"
+                                android:hint="Email"
+                                android:inputType="textEmailAddress"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@drawable/curser_drawable"
+                                android:textStyle="normal" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginRight="@dimen/_30sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <RelativeLayout
+                                android:id="@+id/leftIcon1"
+                                android:background="@drawable/circle_green"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp">
+                                <ImageView
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="@dimen/_18sdp"
+                                    android:layout_height="@dimen/_18sdp"
+                                    android:src="@drawable/padlock"/>
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/bg_rect"
+                                android:fontFamily="@font/cabin_regular"
+                                android:hint="Password"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@drawable/curser_drawable"
+                                android:textStyle="normal" />
+                        </RelativeLayout>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnLogin"
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_marginTop="@dimen/_25sdp"
+                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginRight="@dimen/_30sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/rounder_button_green"
+                            android:text="Login"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <LinearLayout
+                            android:id="@+id/btnAddBar"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:fontFamily="@font/cabin_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Have you added your bar?"
+                                android:textColor="@color/black"
+                                android:textStyle="normal"
+                                android:textSize="@dimen/_10sdp"/>
+
+                            <TextView
+                                android:fontFamily="@font/cabin_regular"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:textSize="@dimen/_10sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Add it here"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_30sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Forgot Password?"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

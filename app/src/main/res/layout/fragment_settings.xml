@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <RelativeLayout
+            android:id="@+id/headerLay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp">
+            <TextView
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/cabin_regular"
+                android:id="@+id/titleTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:textSize="@dimen/_12sdp"
+                android:layout_centerInParent="true"/>
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dark_gray1" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_below="@+id/headerLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:background="@color/backgroundColor_claim"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/locationRL"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:visibility="visible">
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Location is disabled"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/cabin_regular"/>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/locationAllowSetting"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:text="Allow location"
+                            android:fontFamily="@font/cabin_regular"
+                            android:background="@drawable/rounder_button_light_blue"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_12sdp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/_45sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bar Profile"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/cabin_regular"
+                        android:textStyle="bold"/>
+
+                    <RelativeLayout
+                        android:id="@+id/addBar"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_55sdp">
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:id="@+id/myBarCalinBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_55sdp">
+                            <LinearLayout
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:layout_toLeftOf="@+id/rightArrowIV"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                >
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:src="@drawable/calim_bar_icon"
+                                    android:layout_gravity="center"/>
+
+                                <TextView
+                                    android:fontFamily="@font/cabin_bold"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Add your bar"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="@dimen/_10sdp"/>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:id="@+id/rightArrowIV"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/right_arrow"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/loginTV"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Already added your bar?"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:textSize="@dimen/_10sdp"/>
+
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Log in here >"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/_45sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Only Show"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/cabin_regular"
+                        android:textStyle="bold"/>
+
+                    <RelativeLayout
+                        android:id="@+id/barWithTerraceRL"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp">
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <LinearLayout
+                                android:layout_marginRight="@dimen/_20sdp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/barWithTerraceTV"
+                                    android:fontFamily="@font/cabin_bold"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Bars with terraces"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <CheckBox
+                                android:id="@+id/barWithTerraceCB"
+                                style="@style/CheckboxStyle"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginRight="@dimen/_10sdp"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/roofTopRL"
+                        android:background="@color/greenish_blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp">
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <LinearLayout
+                                android:layout_marginRight="@dimen/_20sdp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                >
+
+                                <TextView
+                                    android:id="@+id/roofTopTV"
+
+                                    android:fontFamily="@font/cabin_bold"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rooftops"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <CheckBox
+                                android:id="@+id/roofTopCB"
+                                android:checked="true"
+                                style="@style/CheckboxStyle"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginRight="@dimen/_10sdp"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/_45sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Community"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/cabin_regular"
+                        android:textStyle="bold"/>
+
+                    <RelativeLayout
+                        android:id="@+id/instagramRL"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp">
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <LinearLayout
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:src="@drawable/instagram_icon"
+                                    android:layout_gravity="center"/>
+
+                                <TextView
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Write to us! @bebelo.es"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="normal"
+                                    android:layout_marginLeft="@dimen/_10sdp"/>
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/right_arrow"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/_45sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="The boring stuff"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/cabin_regular"
+                        android:textStyle="bold"/>
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp">
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <LinearLayout
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="167dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:text="Terms of use"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/right_arrow"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/light_gray"/>
+
+                    <RelativeLayout
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp">
+                        <RelativeLayout
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp">
+                            <LinearLayout
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="167dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:text="Data policy"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/right_arrow"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
