@@ -85,6 +85,7 @@ public class Home extends AppCompatActivity {
         if(checkExploreLoded){
             finish();
         }else{
+            
             checkExploreLoded=true;
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new ExploreFragment()).commit();
             SetSelectedTab(0);
