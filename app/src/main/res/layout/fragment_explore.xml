@@ -4,27 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.ExploreFragment"
-    >
+    tools:context=".Fragments.ExploreFragment">
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!--        <fragment-->
-<!--            android:id="@+id/map"-->
-<!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapView"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             app:mapbox_renderTextureMode="true" />
+
         <RelativeLayout
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_90sdp"
@@ -35,6 +28,7 @@
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_45sdp"
             android:visibility="visible">
+
             <ImageView
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"

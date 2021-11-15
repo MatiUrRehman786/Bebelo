@@ -18,6 +18,7 @@
             android:fillViewport="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:background="@color/backgroundColor"
                 android:orientation="vertical"
@@ -30,15 +31,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
-                        android:fontFamily="@font/cabin_regular"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Bar info"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:textSize="@dimen/_12sdp"/>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bar info"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textSize="@dimen/_12sdp"/>
+
+                        <TextView
+                            android:fontFamily="@font/cabin_regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textSize="@dimen/_12sdp"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -51,36 +70,38 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:orientation="horizontal">
-                            <RelativeLayout
+                            <TextView
                                 android:layout_weight="1.5"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bar name"
-                                    android:fontFamily="@font/cabin_regular"
-                                    android:layout_centerInParent="true"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/light_black"
-                                    android:textSize="@dimen/_10sdp"/>
-                            </RelativeLayout>
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/cabin_regular"
+                                android:text="Bar name"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/_10sdp"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal">
+
+
+                            </TextView>
 
                             <RelativeLayout
                                 android:layout_weight="0.5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
+
                                 <EditText
-                                    android:text="Perrachica"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:textSize="@dimen/_10sdp"
-                                    android:textStyle="normal"
+                                    android:hint="@string/type_here"
+                                    android:inputType="text"
                                     android:maxLines="1"
                                     android:textColor="@color/black"
-                                    android:inputType="text"/>
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textStyle="normal" />
 
                                 <View
                                     android:layout_width="match_parent"
@@ -95,34 +116,35 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:orientation="horizontal">
-                            <RelativeLayout
+                            <TextView
                                 android:layout_weight="1.5"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bar Address"
-                                    android:fontFamily="@font/cabin_regular"
-                                    android:layout_centerInParent="true"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/light_black"
-                                    android:textSize="@dimen/_10sdp"/>
-                            </RelativeLayout>
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/cabin_regular"
+                                android:text="Bar Address"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/_10sdp"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal">
+
+                            </TextView>
 
                             <RelativeLayout
                                 android:layout_weight="0.5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
-                                <EditText
+                                <TextView
+                                    android:id="@+id/locationTV"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:inputType="number"
+                                    android:gravity="center_vertical"
                                     android:maxLines="1"
-                                    android:text="Calle Eloy Gonzalo, 10, 28010 Madrid, Spain"
+                                    android:text="Select Location"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
@@ -185,8 +207,9 @@
                                 android:orientation="horizontal">
                                 <ImageView
                                     android:layout_width="@dimen/_30sdp"
-                                    android:layout_height="@dimen/_30sdp"
-                                    android:src="@drawable/drink1"
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/tanquaray_small"
                                     android:layout_gravity="center"/>
 
                                 <TextView
@@ -240,8 +263,9 @@
                                 android:orientation="horizontal">
                                 <ImageView
                                     android:layout_width="@dimen/_30sdp"
-                                    android:layout_height="@dimen/_30sdp"
-                                    android:src="@drawable/drink2"
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/beefeater_small"
                                     android:layout_gravity="center"/>
 
                                 <TextView
@@ -296,9 +320,9 @@
 
                                 <ImageView
                                     android:layout_width="@dimen/_30sdp"
-                                    android:layout_height="@dimen/_30sdp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/drink3" />
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/brugal_small" />
 
                                 <TextView
                                     android:layout_marginLeft="@dimen/_10sdp"
@@ -496,16 +520,6 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             android:textSize="@dimen/_12sdp"/>
-
-                        <TextView
-                            android:fontFamily="@font/cabin_regular"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textSize="@dimen/_12sdp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="(not shown in bar profile)"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -519,36 +533,36 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:orientation="horizontal">
-                            <RelativeLayout
+                            <TextView
                                 android:layout_weight="1.5"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Your name"
-                                    android:fontFamily="@font/cabin_regular"
-                                    android:layout_centerInParent="true"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/light_black"
-                                    android:textSize="@dimen/_10sdp"/>
-                            </RelativeLayout>
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/cabin_regular"
+                                android:text="Your name"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/_10sdp">
+                            </TextView>
 
                             <RelativeLayout
                                 android:layout_weight="0.5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
+
                                 <EditText
-                                    android:text="José San Pedro de Cuenca"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:textSize="@dimen/_10sdp"
-                                    android:textStyle="normal"
+                                    android:hint="@string/type_here"
+                                    android:inputType="text"
                                     android:maxLines="1"
                                     android:textColor="@color/black"
-                                    android:inputType="text"/>
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textStyle="normal" />
 
                                 <View
                                     android:layout_width="match_parent"
@@ -563,36 +577,36 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:orientation="horizontal">
-                            <RelativeLayout
+                            <TextView
                                 android:layout_weight="1.5"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Phone no."
-                                    android:fontFamily="@font/cabin_regular"
-                                    android:layout_centerInParent="true"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/light_black"
-                                    android:textSize="@dimen/_10sdp"/>
-                            </RelativeLayout>
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/cabin_regular"
+                                android:text="Phone no."
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/_10sdp">
+                            </TextView>
 
                             <RelativeLayout
                                 android:layout_weight="0.5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
+
                                 <EditText
-                                    android:text="+34917377775"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:textSize="@dimen/_10sdp"
-                                    android:textStyle="normal"
+                                    android:hint="@string/type_here"
+                                    android:inputType="number"
                                     android:maxLines="1"
                                     android:textColor="@color/black"
-                                    android:inputType="number"/>
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textStyle="normal" />
 
                                 <View
                                     android:layout_width="match_parent"
@@ -605,24 +619,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/_25sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
-                        android:fontFamily="@font/cabin_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Account"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:textSize="@dimen/_12sdp"/>
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:background="@color/white"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <LinearLayout
@@ -630,27 +633,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:orientation="horizontal">
-                            <RelativeLayout
+                            <TextView
                                 android:layout_weight="1.5"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Email"
-                                    android:fontFamily="@font/cabin_regular"
-                                    android:layout_centerInParent="true"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/light_black"
-                                    android:textSize="@dimen/_10sdp"/>
-                            </RelativeLayout>
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/cabin_regular"
+                                android:text="Email"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/_10sdp">
+
+                            </TextView>
 
                             <RelativeLayout
                                 android:layout_weight="0.5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                                 <EditText
-                                    android:text="perrachica@gamil.com"
+                                    android:hint="@string/type_here"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
@@ -674,36 +677,43 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
                             android:orientation="horizontal">
-                            <RelativeLayout
+                            <TextView
                                 android:layout_weight="1.5"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Password"
-                                    android:fontFamily="@font/cabin_regular"
-                                    android:layout_centerInParent="true"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/light_black"
-                                    android:textSize="@dimen/_10sdp"/>
-                            </RelativeLayout>
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/cabin_regular"
+                                android:text="Password"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/_10sdp">
+
+                            </TextView>
 
                             <RelativeLayout
                                 android:layout_weight="0.5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
+
                                 <EditText
-                                    android:text="*********"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:textSize="@dimen/_10sdp"
-                                    android:textStyle="normal"
+                                    android:hint="@string/type_here"
+                                    android:inputType="textPassword"
                                     android:maxLines="1"
                                     android:textColor="@color/black"
-                                    android:inputType="textPassword"/>
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textStyle="normal" />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/dark_gray"
+                                    android:layout_alignParentBottom="true"/>
+
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

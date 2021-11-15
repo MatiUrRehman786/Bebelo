@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BebloAppApp">
+        <activity
+            android:name=".Activities.PlacesPluginActivity"
+            android:exported="true" />
         <activity android:name=".Activities.EditBar" />
         <activity android:name=".Activities.BarProfile" />
         <activity android:name=".Activities.AddBar" />

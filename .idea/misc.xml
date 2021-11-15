@@ -3,17 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_add_bar.xml" value="0.33" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_home.xml" value="0.27291666666666664" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_places_plugin.xml" value="0.27291666666666664" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_select_location.xml" value="0.27291666666666664" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/add_bar_app_bar.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/app_bar_single_side.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/app_bar_single_side_login.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bar_detail_app_bar.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bar_profile_app_bar.xml" value="0.1537037037037037" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bottom_sheet_explore.xml" value="0.27291666666666664" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bottom_sheet_explore_small.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/botttom_sheet_bar.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/dialog_add_text.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/dialog_allow_location.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/drink_item.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/edit_bar_app_bar.xml" value="0.1537037037037037" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/fragment_explore.xml" value="0.22" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/fragment_profile.xml" value="0.27291666666666664" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/header_item_lay.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/hp/Desktop/Bebelo/app/src/main/res/layout/activity_bar_profile.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/hp/Desktop/Bebelo/app/src/main/res/layout/activity_home.xml" value="0.27291666666666664" />

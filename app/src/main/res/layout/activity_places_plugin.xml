@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.PlacesPluginActivity">
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/searchBtn"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounder_button_green"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_search" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/doneBtn"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounder_button_green"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
