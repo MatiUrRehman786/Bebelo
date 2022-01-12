@@ -8,4 +8,10 @@
         <item name="android:windowEnterAnimation">@anim/enter_anim</item>
         <item name="android:windowExitAnimation">@anim/exit_anim</item>
     </style>
+
+        <style name="CustomProgressDialog" parent="@android:style/Theme.Dialog">
+            <item name="android:backgroundDimEnabled">true</item>
+        </style>
+
+
 </resources>

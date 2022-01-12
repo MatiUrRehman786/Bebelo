@@ -76,6 +76,7 @@
                             </RelativeLayout>
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/emailET"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/bg_rect"
@@ -100,14 +101,16 @@
                                 android:background="@drawable/circle_green"
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp">
+
                                 <ImageView
-                                    android:layout_centerInParent="true"
                                     android:layout_width="@dimen/_18sdp"
                                     android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/padlock"/>
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/padlock" />
                             </RelativeLayout>
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/passwordET"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/bg_rect"

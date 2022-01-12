@@ -23,35 +23,35 @@
             android:src="@drawable/bombay_drink_two" />
 
         <TextView
-            android:fontFamily="@font/cabin_regular"
-            android:layout_toLeftOf="@+id/amountTV"
             android:id="@+id/nameTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bombay Sapphire"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="normal"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:layout_toRightOf="@+id/bottleIV"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:layout_centerVertical="true"/>
-
-        <TextView
-            android:fontFamily="@font/cabin_bold"
-            android:singleLine="true"
-            android:id="@+id/amountTV"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="€7.50"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_toLeftOf="@+id/amountTV"
+            android:layout_toRightOf="@+id/bottleIV"
+            android:fontFamily="@font/cabin_regular"
+            android:maxLines="2"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp"
-            android:textStyle="bold"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/amountTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_20sdp"
-            android:layout_centerVertical="true"/>
+            android:fontFamily="@font/cabin_bold"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"

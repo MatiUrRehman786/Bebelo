@@ -3,78 +3,241 @@ package com.buzzware.bebelo.Fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.buzzware.bebelo.Activities.BarProfile;
 import com.buzzware.bebelo.Activities.ClaimBar;
 import com.buzzware.bebelo.Activities.EditBar;
 import com.buzzware.bebelo.Addapter.AdapterSectionRecycler;
 import com.buzzware.bebelo.Model.Child;
 import com.buzzware.bebelo.Model.SectionHeader;
 import com.buzzware.bebelo.R;
+import com.buzzware.bebelo.classes.Constant;
+import com.buzzware.bebelo.classes.CustomProgressDialog;
+import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.DialogAddTextBinding;
-import com.buzzware.bebelo.databinding.DialogAllowLocationBinding;
 import com.buzzware.bebelo.databinding.FragmentProfileBinding;
-import com.buzzware.bebelo.databinding.FragmentSettingsBinding;
+import com.buzzware.bebelo.retrofit.Controller;
+import com.buzzware.bebelo.retrofit.DetailModel.BarAnounce;
+import com.buzzware.bebelo.retrofit.DetailModel.BarBottleItem;
+import com.buzzware.bebelo.retrofit.DetailModel.DetailModelForAddBar;
+import com.buzzware.bebelo.retrofit.DetailModel.FreeTable;
+import com.buzzware.bebelo.retrofit.Login.LoginResponse;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.suke.widget.SwitchButton;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ProfileFragment extends Fragment {
 
     FragmentProfileBinding binding;
+
     AdapterSectionRecycler adapterRecycler;
+
     List<SectionHeader> sectionHeaders;
+
     Context context;
+
     Dialog dialogNew;
+
+    LoginResponse loginResponse = null;
+
+    DetailModelForAddBar currentUserDetail = null;
+
+    List<BarBottleItem> normalBottleList = new ArrayList<>();
+    List<BarBottleItem> highRollerBottleList = new ArrayList<>();
+    List<BarBottleItem> warTimeBottleList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding= FragmentProfileBinding.inflate(inflater);
+        binding = FragmentProfileBinding.inflate(inflater);
+
         Init();
+
         return binding.getRoot();
     }
-    private void Init() {
-        context= getContext();
-        binding.secItem.bottleIV.setImageResource(R.drawable.bombay_drink);
-        binding.secItem.nameTV.setText("Havana Club");
-        binding.thirdItem.bottleIV.setImageResource(R.drawable.bombay_drink_three);
-        binding.rvDrinks.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvDrinks.setHasFixedSize(true);
-        SetRecyclerView();
 
-        ///setClick
+    private void Init() {
+
+        context = getContext();
+
+        binding.secItem.bottleIV.setImageResource(R.drawable.bombay_drink);
+
+        binding.secItem.nameTV.setText("Havana Club");
+
+        binding.thirdItem.bottleIV.setImageResource(R.drawable.bombay_drink_three);
+
+        binding.rvDrinks.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        binding.rvDrinks.setHasFixedSize(true);
+
         SetListener();
+
+        getCurrentUserDetail();
+
     }
+
+    private void getCurrentUserDetail() {
+
+        loginResponse = SessionManager.getInstance().getUser(getContext());
+
+        currentUserDetail = new Gson().fromJson(loginResponse.getResult().getBdetail(), DetailModelForAddBar.class);
+
+        if (currentUserDetail.getFreeTable() != null) {
+
+            if (currentUserDetail.getFreeTable().isFreeTable()) {
+
+                binding.freeTableCB.setChecked(true);
+                SetSecLayView(true);
+
+            }
+
+        }
+
+        if (currentUserDetail.getBarAnounce() != null) {
+
+            if (currentUserDetail.getBarAnounce().getName() != null && !currentUserDetail.getBarAnounce().getName().isEmpty()) {
+
+                setAnnouncementLayout(true, currentUserDetail.getBarAnounce().getName());
+
+            }
+
+        }
+
+        if (loginResponse.getResult().getImgeUrl() != null && !loginResponse.getResult().getImgeUrl().equals("")) {
+
+            Picasso.with(getContext()).load(loginResponse.getResult().getImgeUrl()).error(R.drawable.thumbnail_image).into(binding.mainBarIV);
+
+        }
+
+        if (currentUserDetail.getBarBottle() != null) {
+
+            binding.firstItem.bottleIV.setImageResource(R.drawable.tanquaray_small);
+            binding.secItem.bottleIV.setImageResource(R.drawable.beefeater_small);
+            binding.thirdItem.bottleIV.setImageResource(R.drawable.brugal_small);
+
+            binding.firstItem.nameTV.setText("Tanqueray");
+            binding.secItem.nameTV.setText("Beefeater");
+            binding.thirdItem.nameTV.setText("Brugal Añejo");
+
+            for (BarBottleItem barBottleItem : currentUserDetail.getBarBottle()) {
+
+                if (barBottleItem.getDrinkName().equals("Tanqueray")) {
+
+                    if (barBottleItem.getDrinkPrice().contains("-"))
+                        binding.firstItem.amountTV.setText("-");
+                    else
+                        binding.firstItem.amountTV.setText("€ " + barBottleItem.getDrinkPrice());
+
+                }
+                if (barBottleItem.getDrinkName().equals("Beefeater")) {
+                    if (barBottleItem.getDrinkPrice().contains("-"))
+                        binding.secItem.amountTV.setText("-");
+                    else
+                        binding.secItem.amountTV.setText("€ " + barBottleItem.getDrinkPrice());
+
+                }
+                if (barBottleItem.getDrinkName().equals("Brugal Añejo")) {
+                    if (barBottleItem.getDrinkPrice().contains("-"))
+                        binding.thirdItem.amountTV.setText("-");
+                    else
+                        binding.thirdItem.amountTV.setText("€ " + barBottleItem.getDrinkPrice());
+
+                }
+                if (barBottleItem.getDrinkName().equals("Caña")) {
+                    if (barBottleItem.getDrinkPrice().contains("-"))
+                        binding.canaPriceTV.setText("-");
+                    else
+                        binding.canaPriceTV.setText("€ " + barBottleItem.getDrinkPrice());
+
+                }
+                if (barBottleItem.getDrinkName().equals("Doble")) {
+                    if (barBottleItem.getDrinkPrice().contains("-"))
+                        binding.doblePriceTV.setText("-");
+                    else
+                        binding.doblePriceTV.setText("€ " + barBottleItem.getDrinkPrice());
+
+                }
+
+            }
+
+            getBottleList();
+
+
+        }
+    }
+
+    private void getBottleList() {
+
+        if (currentUserDetail.getBarBottle() != null) {
+
+            String normal = Constant.normals;
+            String highRoller = Constant.highRoller;
+            String warTime = Constant.wartime;
+
+            normalBottleList.clear();
+            highRollerBottleList.clear();
+            warTimeBottleList.clear();
+
+            for (BarBottleItem barBottleItem : currentUserDetail.getBarBottle()) {
+
+                if (normal.contains(barBottleItem.getDrinkName())) {
+                    normalBottleList.add(barBottleItem);
+                } else if (highRoller.contains(barBottleItem.getDrinkName())) {
+                    highRollerBottleList.add(barBottleItem);
+                } else if (warTime.contains(barBottleItem.getDrinkName())) {
+                    warTimeBottleList.add(barBottleItem);
+                }
+
+            }
+
+            setRecyclerView();
+
+        }
+
+    }
+
     private void SetListener() {
-        binding.AnunciarET.setOnClickListener(v->{
+
+        binding.AnunciarET.setOnClickListener(v -> {
+
             showDialogText();
+
         });
-        binding.firstRectLay.setOnClickListener(v->{
+
+        binding.firstRectLay.setOnClickListener(v -> {
+
             showDialogText();
+
         });
-        binding.plusBT.setOnClickListener(v->{
+
+        binding.plusBT.setOnClickListener(v -> {
+
             showDialogText();
+
         });
+
         binding.anunciarLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,14 +251,44 @@ public class ProfileFragment extends Fragment {
                 SetDeleteView();
                 binding.AnunciarET.setText("Announce something!");
                 binding.btnBlueGlow.setVisibility(View.INVISIBLE);
+
+
+                BarAnounce barAnounce = new BarAnounce();
+                barAnounce = null;
+                currentUserDetail.setBarAnounce(barAnounce);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(currentUserDetail);
+                loginResponse.getResult().setBdetail(json);
+                updateBarNow(loginResponse);
+
             }
         });
 
-        binding.switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SetSecLayView(isChecked);
+        binding.freeTableCB.setOnCheckedChangeListener((view, isChecked) -> {
+
+            FreeTable freeTable = new FreeTable();
+
+            if (isChecked) {
+
+                freeTable.setFreeTable(true);
+
+            } else {
+
+                freeTable.setFreeTable(false);
+
             }
+
+            freeTable.setDate(System.currentTimeMillis());
+            currentUserDetail.setFreeTable(freeTable);
+            Gson gson = new Gson();
+            String json = gson.toJson(currentUserDetail);
+            loginResponse.getResult().setBdetail(json);
+            updateBarNow(loginResponse);
+
+
+            SetSecLayView(isChecked);
+
         });
 
         binding.appBar.editIV.setOnClickListener(new View.OnClickListener() {
@@ -104,13 +297,21 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(), EditBar.class));
             }
         });
+
+    }
+
+    public long getCurrentTimeStamp() {
+        long tsLong = System.currentTimeMillis();
+        return tsLong;
+
     }
 
     private void SetSecLayView(boolean isChecked) {
-        if(isChecked){
+        if (isChecked) {
             binding.btnRedGlow.setVisibility(View.VISIBLE);
-        }else{
-            binding.btnRedGlow.setVisibility(View.INVISIBLE);        }
+        } else {
+            binding.btnRedGlow.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void SetDeleteView() {
@@ -130,12 +331,12 @@ public class ProfileFragment extends Fragment {
     private void OpenBottomDialog() {
         AppCompatButton btnClose;
         RelativeLayout btnYourClaim;
-        BottomSheetDialog bottomSheetDialog= new BottomSheetDialog(getContext(), R.style.SheetDialogMargin);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.SheetDialogMargin);
         View view = getLayoutInflater().inflate(R.layout.bottom_dialog, null);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
-        btnClose= view.findViewById(R.id.btnClose);
-        btnYourClaim= view.findViewById(R.id.myBarCalinBtn);
+        btnClose = view.findViewById(R.id.btnClose);
+        btnYourClaim = view.findViewById(R.id.myBarCalinBtn);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,33 +352,18 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    public void SetRecyclerView(){
-        //Create a List of Child DataModel
-        List<Child> childList = new ArrayList<>();
-        childList.add(new Child("Caña", "\u20ac7", R.drawable.list_image1));
-        childList.add(new Child("Doble", "\u20ac7", R.drawable.list_image2));
-        //Create a List of SectionHeader DataModel implements SectionHeader
+    public void setRecyclerView() {
+
         sectionHeaders = new ArrayList<>();
-        sectionHeaders.add(new SectionHeader(childList, "Cerveza", 4));
 
-        childList = new ArrayList<>();
-        childList.add(new Child("Absolut Vodka", "\u20ac7", R.drawable.list_image3));
-        childList.add(new Child("Havana Club", "\u20ac7", R.drawable.list_image4));
-        childList.add(new Child("Jameson", "\u20ac7", R.drawable.list_image5));
-        childList.add(new Child("Bombay Sapphire", "\u20ac7", R.drawable.list_image6));
-        childList.add(new Child("Tanqueray", "\u20ac7", R.drawable.list_image7));
-        sectionHeaders.add(new SectionHeader(childList, "Capas Normales", 2));
+        if (normalBottleList.size() > 0)
+            sectionHeaders.add(new SectionHeader(normalBottleList, "Normales", 2));
 
-        childList = new ArrayList<>();
-        childList.add(new Child("Brugal Anejo", "\u20ac7", R.drawable.list_image8));
-        childList.add(new Child("Nordés", "\u20ac7", R.drawable.list_image9));
-        sectionHeaders.add(new SectionHeader(childList, "High roller", 1));
+        if (highRollerBottleList.size() > 0)
+            sectionHeaders.add(new SectionHeader(highRollerBottleList, "High roller", 1));
 
-        childList = new ArrayList<>();
-        childList.add(new Child("Larios", "\u20ac7", R.drawable.list_image10));
-        childList.add(new Child("Captain Morgan", "\u20ac7", R.drawable.list_image11));
-        sectionHeaders.add(new SectionHeader(childList, "Copas subnormales", 3));
-
+        if (warTimeBottleList.size() > 0)
+            sectionHeaders.add(new SectionHeader(warTimeBottleList, "War time", 3));
 
         adapterRecycler = new AdapterSectionRecycler(getContext(), sectionHeaders);
         binding.rvDrinks.setAdapter(adapterRecycler);
@@ -199,26 +385,39 @@ public class ProfileFragment extends Fragment {
                 binding.anunciarLay.setVisibility(View.INVISIBLE);
             }
         });
+
         dialogBinding.doneBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogNew.dismiss();
 
-                if(!dialogBinding.textET.getText().toString().equals("")){
-                    binding.anunciarLay.setVisibility(View.GONE);
-                    binding.btnDelete.setVisibility(View.VISIBLE);
-                    binding.plusBT.setVisibility(View.INVISIBLE);
-                    binding.AnunciarET.setText(dialogBinding.textET.getText().toString());
-                    binding.btnBlueGlow.setVisibility(View.VISIBLE);
-                }else{
-                    binding.AnunciarET.setText("Announce something!");
-                    binding.anunciarLay.setVisibility(View.GONE);
-                    binding.btnDelete.setVisibility(View.GONE);
-                    binding.plusBT.setVisibility(View.VISIBLE);
-                    binding.btnBlueGlow.setVisibility(View.INVISIBLE);
+                if (!dialogBinding.textET.getText().toString().equals("")) {
+
+                    setAnnouncementLayout(true, dialogBinding.textET.getText().toString());
+
+                    BarAnounce barAnounce = new BarAnounce();
+                    barAnounce.setName(dialogBinding.textET.getText().toString());
+                    barAnounce.setDate(System.currentTimeMillis());
+                    currentUserDetail.setBarAnounce(barAnounce);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(currentUserDetail);
+                    loginResponse.getResult().setBdetail(json);
+                    updateBarNow(loginResponse);
+
+
+                } else {
+
+                    setAnnouncementLayout(false, "Announce something!");
+                    BarAnounce barAnounce = new BarAnounce();
+                    barAnounce = null;
+                    currentUserDetail.setBarAnounce(barAnounce);
+
                 }
             }
         });
+
+
         dialogBinding.cancelBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,11 +425,111 @@ public class ProfileFragment extends Fragment {
                 binding.anunciarLay.setVisibility(View.GONE);
                 binding.btnDelete.setVisibility(View.GONE);
                 binding.plusBT.setVisibility(View.VISIBLE);
-                binding.btnBlueGlow.setVisibility(View.INVISIBLE);            }
+                binding.btnBlueGlow.setVisibility(View.INVISIBLE);
+            }
         });
 
         dialogNew.show();
 
     }
+
+    public void setAnnouncementLayout(boolean check, String title) {
+
+        if (check) {
+
+            binding.anunciarLay.setVisibility(View.GONE);
+            binding.btnDelete.setVisibility(View.VISIBLE);
+            binding.plusBT.setVisibility(View.INVISIBLE);
+            binding.AnunciarET.setText(title);
+            binding.btnBlueGlow.setVisibility(View.VISIBLE);
+
+        } else {
+
+            binding.AnunciarET.setText(title);
+            binding.anunciarLay.setVisibility(View.GONE);
+            binding.btnDelete.setVisibility(View.GONE);
+            binding.plusBT.setVisibility(View.VISIBLE);
+            binding.btnBlueGlow.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCurrentUserDetail();
+    }
+
+    private void updateBarNow(LoginResponse loginResponse) {
+        CustomProgressDialog.getInstance(getActivity()).showProgressDialog();
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("id", loginResponse.getResult().getId())
+                .addFormDataPart("cname", loginResponse.getResult().getCname())
+                .addFormDataPart("cphone", loginResponse.getResult().getCphone())
+                .addFormDataPart("image", loginResponse.getResult().getImgeUrl())
+                .addFormDataPart("bname", loginResponse.getResult().getBname())
+                .addFormDataPart("baddress", loginResponse.getResult().getBaddress())
+                .addFormDataPart("blat", loginResponse.getResult().getBlat())
+                .addFormDataPart("blng", loginResponse.getResult().getBlng())
+                .addFormDataPart("bdetail", loginResponse.getResult().getBdetail())
+                .build();
+
+        Controller.getApi().updateBar(requestBody)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        CustomProgressDialog.getInstance(getActivity()).dismissProgressDialog();
+
+                        if (response.body() != null) {
+
+                            try {
+
+                                LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
+
+                                if (loginResponse.getSuccess() == 1) {
+
+                                    Gson gson = new Gson();
+
+                                    String jsonData = gson.toJson(loginResponse);
+
+                                    SessionManager.getInstance().setUser(context, loginResponse);
+
+                                    Log.d("updateResponse", jsonData);
+
+                                    getCurrentUserDetail();
+
+
+                                } else {
+
+                                    Toast.makeText(context, "updated Failed! " + loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            } catch (Exception e) {
+
+                                e.printStackTrace();
+
+                                Log.d("updateResponse", "catch exception");
+
+                                Toast.makeText(context, "updated Failed! " + loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                        Log.d("appRegisterResponse", "onFailure exception" + t.getLocalizedMessage());
+
+                        CustomProgressDialog.getInstance(getActivity()).dismissProgressDialog();
+
+                    }
+                });
+
+    }
+
 
 }

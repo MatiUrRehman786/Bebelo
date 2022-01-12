@@ -9,4 +9,13 @@
     <string name="mapbox_access_token">pk.eyJ1Ijoid2FxYXNtZWhtb29kMTAwIiwiYSI6ImNrcmtqdzFzazFmbnkycHBrejR0cjY5czIifQ.fTjz-0RW0KJv2QKOcHLzEQ</string>
 
     <string name="type_here">Type here</string>
+
+    <string-array name="spinner_Values">
+        <item>\u20ac</item>
+        <item>%</item>
+    </string-array>
+    <string name="uploadRec">uploadrecoding</string>
+    <string name="endTime">endTime</string>
+
+
 </resources>

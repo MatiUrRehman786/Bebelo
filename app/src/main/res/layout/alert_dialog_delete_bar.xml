@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_25sdp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="@dimen/_15sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_15sdp">
+
+            <ImageView
+                android:id="@+id/contactIconIV"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/alert_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/light_grayy"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintTop_toBottomOf="@id/contactIconIV"/>
+
+
+            <TextView
+                android:id="@+id/titleET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin_medium"
+                android:lineSpacingExtra="@dimen/_8sdp"
+                android:text="Delete bar"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="@id/contactIconIV"
+                app:layout_constraintEnd_toStartOf="@id/exitIconIV"
+                app:layout_constraintStart_toEndOf="@id/contactIconIV"
+                app:layout_constraintTop_toTopOf="@id/contactIconIV" />
+
+            <ImageView
+                android:id="@+id/exitIconIV"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/exit_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/messageET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/cabin_medium"
+                android:gravity="center"
+                android:text="You are about to deleteyour bar permanently. This action cannot be undone."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintTop_toBottomOf="@id/contactIconIV" />
+
+            <TextView
+                android:id="@+id/titleTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/cabin_medium"
+                android:gravity="center"
+                android:text="Are you sure you want to\nproceed?"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/messageET" />
+
+            <TextView
+                android:id="@+id/cancelBtn"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.49"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/cabin_medium"
+                android:lineSpacingExtra="@dimen/_8sdp"
+                android:text="Cancel"
+                android:gravity="center"
+                android:background="@drawable/rounder_button_green"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+            <TextView
+                android:id="@+id/deleteBarBtn"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.49"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/rounder_border_gray_light"
+                android:fontFamily="@font/cabin_medium"
+                android:lineSpacingExtra="@dimen/_8sdp"
+                android:text="Delete Bar"
+                android:textColor="@color/gray_dark2"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintTop_toBottomOf="@id/cancelBtn"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_bar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout
-        android:padding="@dimen/_10sdp"
+    android:layout_height="@dimen/_40sdp"
+    android:orientation="horizontal">
+
+    <!-- This is actually used for the badge icon *or* the badge label (or neither) -->
+    <TextView
+        android:id="@+id/search_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Edit Bar"
+        android:fontFamily="@font/cabin_medium"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:id="@+id/backIV"
-            android:layout_alignParentLeft="true"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp">
-            <ImageView
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
-                android:src="@drawable/cross"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <TextView
-            android:fontFamily="@font/cabin_regular"
-            android:id="@+id/titleTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Bar Profile"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="@dimen/_10sdp"
-            android:layout_centerInParent="true"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/backIV"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/back_icon"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="@dimen/_10sdp" />
 
-        <RelativeLayout
-            android:id="@+id/btnDone"
-            android:layout_alignParentRight="true"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_25sdp">
-            <TextView
-                android:fontFamily="@font/cabin_regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Done"
-                android:textColor="@color/blueColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/_12sdp"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Done"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:fontFamily="@font/cabin_medium"
+        android:textColor="@color/lightBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.buzzware.bebelo.Addapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,11 @@ import com.buzzware.bebelo.Model.SectionHeader;
 import com.buzzware.bebelo.R;
 import com.buzzware.bebelo.ViewHolder.ChildViewHolder;
 import com.buzzware.bebelo.ViewHolder.SectionViewHolder;
+import com.buzzware.bebelo.retrofit.DetailModel.BarBottleItem;
 import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 import java.util.List;
 
-public class AdapterSectionRecycler extends SectionRecyclerViewAdapter<SectionHeader, Child, SectionViewHolder, ChildViewHolder> {
+public class AdapterSectionRecycler extends SectionRecyclerViewAdapter<SectionHeader, BarBottleItem, SectionViewHolder, ChildViewHolder> {
 
     Context context;
 
@@ -39,9 +42,24 @@ public class AdapterSectionRecycler extends SectionRecyclerViewAdapter<SectionHe
     }
 
     @Override
-    public void onBindChildViewHolder(ChildViewHolder childViewHolder, int sectionPosition, int childPosition, Child child) {
-        childViewHolder.name.setText(child.getName());
-        childViewHolder.amount.setText(child.getAmount());
-        childViewHolder.bottleIV.setImageResource(child.getImage());
+    public void onBindChildViewHolder(ChildViewHolder childViewHolder, int sectionPosition, int childPosition, BarBottleItem child) {
+
+        childViewHolder.name.setText(child.getDrinkName());
+
+        childViewHolder.amount.setText("€ "+child.getDrinkPrice());
+
+
+        try {
+
+            Resources resources = context.getResources();
+            final int resourceId = resources.getIdentifier(child.getDrinkImage(), "drawable",
+                    context.getPackageName());
+
+            childViewHolder.bottleIV.setImageResource(resourceId);
+
+        } catch (Exception e){
+            Log.d("image", "image not found in drawable"+e.getLocalizedMessage());
+        }
+
     }
 }

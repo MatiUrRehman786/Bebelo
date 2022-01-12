@@ -243,7 +243,7 @@
                                 android:layout_marginRight="@dimen/_15sdp">
 
                                 <com.suke.widget.SwitchButton
-                                    android:id="@+id/switchButton"
+                                    android:id="@+id/freeTableCB"
                                     android:layout_width="45dp"
                                     android:layout_height="25dp"
                                     android:layout_centerInParent="true"
@@ -260,13 +260,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/mainBarIV"
                     android:layout_width="match_parent"
+                    android:scaleType="fitXY"
                     android:layout_height="@dimen/_200sdp"
-                    android:src="@drawable/image_bottom_dialog"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"/>
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:src="@drawable/thumbnail_image" />
 
                 <include
                     android:id="@+id/firstItem"
@@ -279,6 +280,185 @@
                 <include
                     android:id="@+id/thirdItem"
                     layout="@layout/drink_item"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:fontFamily="@font/cabin_regular"
+                            android:text="Beer"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:layout_marginRight="@dimen/_15sdp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:src="@drawable/cana" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:text="Caña"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_14sdp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="@dimen/_28sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/_15sdp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:paddingLeft="@dimen/_10sdp"
+                                    android:paddingRight="@dimen/_10sdp">
+
+
+                                    <TextView
+                                        android:id="@+id/canaPriceTV"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginLeft="@dimen/_10sdp"
+                                        android:fontFamily="@font/cabin_regular"
+                                        android:gravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:textStyle="normal"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/light_grayy" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:layout_marginRight="@dimen/_15sdp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:src="@drawable/doble" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:fontFamily="@font/cabin_regular"
+                                    android:text="Doble"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_14sdp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="@dimen/_28sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/_15sdp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:paddingLeft="@dimen/_10sdp"
+                                    android:paddingRight="@dimen/_10sdp">
+
+
+                                    <TextView
+                                        android:id="@+id/doblePriceTV"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginLeft="@dimen/_10sdp"
+                                        android:fontFamily="@font/cabin_regular"
+                                        android:gravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:textStyle="normal"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/light_grayy" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"

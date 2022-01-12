@@ -1,51 +1,56 @@
 package com.buzzware.bebelo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.buzzware.bebelo.Fragments.ExploreFragment;
 import com.buzzware.bebelo.Fragments.ProfileFragment;
 import com.buzzware.bebelo.Fragments.SettingsFragment;
 import com.buzzware.bebelo.R;
+import com.buzzware.bebelo.classes.Constant;
+import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.ActivityHomeBinding;
 
 public class Home extends AppCompatActivity {
 
     public static ActivityHomeBinding binding;
 
-    SharedPreferences pref;
+    ExploreFragment fragment;
 
-    boolean checkExploreLoaded=true;
+    boolean checkExploreLoaded = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding= ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        checkExploreLoaded=true;
+        checkExploreLoaded = true;
 
-        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        checkUserLoginOrNot();
 
-        if(pref.getString("checkLogin",null)!=null){
+        Init();
 
-            if(pref.getString("checkLogin",null).equals("login")){
+        SetListeners();
 
-                binding.btnProfile.setVisibility(View.VISIBLE);
+    }
 
-                binding.btnDummy.setVisibility(View.GONE);
+    private void checkUserLoginOrNot() {
 
-            } else {
+        if (SessionManager.getInstance().getUser(Home.this) != null) {
 
-                binding.btnProfile.setVisibility(View.GONE);
+            binding.btnProfile.setVisibility(View.VISIBLE);
 
-                binding.btnDummy.setVisibility(View.VISIBLE);
+            binding.btnDummy.setVisibility(View.GONE);
 
-            }
         } else {
 
             binding.btnProfile.setVisibility(View.GONE);
@@ -54,19 +59,18 @@ public class Home extends AppCompatActivity {
 
         }
 
-        Init();
-
-        SetListeners();
-
     }
 
     private void SetListeners() {
 
         binding.btnExplore.setOnClickListener(v -> {
 
-            checkExploreLoaded=true;
+            if (fragment == null)
+                fragment = new ExploreFragment();
+            checkExploreLoaded = true;
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new ExploreFragment()).commit();
+           // getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+
 
             SetSelectedTab(0);
 
@@ -74,7 +78,7 @@ public class Home extends AppCompatActivity {
 
         binding.btnSettings.setOnClickListener(v -> {
 
-            checkExploreLoaded=false;
+            checkExploreLoaded = false;
 
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
 
@@ -83,9 +87,11 @@ public class Home extends AppCompatActivity {
         });
         binding.btnProfile.setOnClickListener(v -> {
 
-            checkExploreLoaded=false;
+            checkExploreLoaded = false;
 
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
+
+
 
             SetSelectedTab(2);
 
@@ -96,19 +102,19 @@ public class Home extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-      //  super.onBackPressed();
+        //  super.onBackPressed();
 
-        ExploreFragment.checkOpen=false;
+        ExploreFragment.checkOpen = false;
 
-        if(checkExploreLoaded){
+        if (checkExploreLoaded) {
 
             finish();
 
         } else {
-            
-            checkExploreLoaded=true;
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new ExploreFragment()).commit();
+            checkExploreLoaded = true;
+
+           // getSupportFragmentManager().beginTransaction().replace(R.id.container, new ExploreFragment()).commit();
 
             SetSelectedTab(0);
 
@@ -117,22 +123,41 @@ public class Home extends AppCompatActivity {
     }
 
     private void Init() {
-        SetDefualtFragment();
+
+        SetDefaultFragment();
+
     }
 
-    private void SetDefualtFragment() {
+    private void SetDefaultFragment() {
 
-        checkExploreLoaded=true;
+        checkExploreLoaded = true;
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ExploreFragment()).commit();
+        fragment = new ExploreFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerExplore, fragment).commit();
 
         SetSelectedTab(0);
 
     }
 
-    public void SetSelectedTab(int position){
+    private void setSettingFragment() {
 
-        if(position == 0){
+        checkExploreLoaded = true;
+
+        Constant.loadSettingFragment = false;
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
+
+        SetSelectedTab(0);
+
+    }
+
+    public void SetSelectedTab(int position) {
+
+        if (position == 0) {
+
+            binding.containerExplore.setVisibility(View.VISIBLE);
+            binding.container.setVisibility(View.INVISIBLE);
 
             binding.btnExplore.setBackgroundColor(getResources().getColor(R.color.white));
 
@@ -152,6 +177,9 @@ public class Home extends AppCompatActivity {
 
         } else if (position == 1) {
 
+            binding.containerExplore.setVisibility(View.INVISIBLE);
+            binding.container.setVisibility(View.VISIBLE);
+
             binding.btnExplore.setBackgroundColor(getResources().getColor(R.color.white));
 
             binding.btnSettings.setBackgroundColor(getResources().getColor(R.color.white));
@@ -169,6 +197,9 @@ public class Home extends AppCompatActivity {
             binding.thirdTabTV.setTextColor(getResources().getColor(R.color.gray_dark2));
 
         } else if (position == 2) {
+
+            binding.containerExplore.setVisibility(View.INVISIBLE);
+            binding.container.setVisibility(View.VISIBLE);
 
             binding.btnExplore.setBackgroundColor(getResources().getColor(R.color.white));
 
@@ -193,31 +224,15 @@ public class Home extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        checkExploreLoaded=true;
+        checkExploreLoaded = false;
 
-        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        checkUserLoginOrNot();
 
-        if (pref.getString("checkLogin",null)!=null) {
+        if (Constant.loadSettingFragment) {
 
-            if (pref.getString("checkLogin",null).equals("login")) {
-
-                binding.btnProfile.setVisibility(View.VISIBLE);
-
-                binding.btnDummy.setVisibility(View.GONE);
-
-            } else {
-
-                binding.btnProfile.setVisibility(View.GONE);
-
-                binding.btnDummy.setVisibility(View.VISIBLE);
-
-            }
-        } else {
-
-            binding.btnProfile.setVisibility(View.GONE);
-
-            binding.btnDummy.setVisibility(View.VISIBLE);
+            setSettingFragment();
 
         }
+
     }
 }

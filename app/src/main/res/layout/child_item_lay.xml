@@ -10,13 +10,14 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_16sdp"
             android:id="@+id/bottleIV"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/bombay_drink_two"/>
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/tanquaray_small" />
 
         <TextView
             android:fontFamily="@font/cabin_regular"
@@ -52,7 +53,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/light_gray"
-            android:layout_below="@+id/bottleIV" />
+            android:layout_below="@+id/bottleIV"
+            android:background="@color/light_gray" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.buzzware.bebelo.R;
+import com.buzzware.bebelo.databinding.ActivityPlacesPluginBinding;
 import com.google.gson.JsonObject;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
@@ -43,7 +48,10 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+
 public class PlacesPluginActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         PermissionsListener {
@@ -66,6 +74,13 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
     private PermissionsManager permissionsManager;
 
+    TextView doneBtn,searchedTV,cancelBtn;
+    View view;
+
+    LatLng latLng=null;
+
+    String type="AddBar";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +91,53 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
         mapView = findViewById(R.id.mapView);
 
+        doneBtn = findViewById(R.id.doneNewBtn);
+
+        cancelBtn = findViewById(R.id.cancelBtn);
+
+        view = findViewById(R.id.lineView);
+
+        searchedTV = findViewById(R.id.searchTV);
+
         mapView.onCreate(savedInstanceState);
 
         mapView.getMapAsync(this);
 
+        setListener();
+
+        getDataFromIntent();
+
+    }
+
+    private void getDataFromIntent() {
+
+        Intent intent=getIntent();
+        type=intent.getStringExtra("type");
+
+    }
+
+    private void setListener() {
+
+        doneBtn.setOnClickListener(v->{
+
+            if(latLng!=null){
+
+                if(type.equals("AddBar")){
+                    AddBar.selectedLocationLatLng=latLng;
+                }else{
+                    EditBar.selectedLocationLatLng=latLng;
+                }
+
+
+                finish();
+
+            }
+        });
+        cancelBtn.setOnClickListener(v->{
+
+            finish();
+
+        });
     }
 
     @Override
@@ -102,11 +160,29 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
         });
 
+        mapboxMap.getUiSettings().setAttributionEnabled(false);
+
+        mapboxMap.getUiSettings().setLogoEnabled(false);
+
     }
 
     private void initSearchFab() {
 
-        findViewById(R.id.searchBtn).setOnClickListener(view -> {
+        findViewById(R.id.searchTV).setOnClickListener(view -> {
+
+            Intent intent = new PlaceAutocomplete.IntentBuilder()
+                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
+                    .placeOptions(PlaceOptions.builder()
+                            .backgroundColor(Color.parseColor(getString(R.color.white)))
+                            .limit(10)
+                            .build(PlaceOptions.MODE_CARDS))
+                    .build(PlacesPluginActivity.this);
+
+            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+
+        });
+
+        findViewById(R.id.lineView).setOnClickListener(view -> {
 
             Intent intent = new PlaceAutocomplete.IntentBuilder()
                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
@@ -172,6 +248,32 @@ public class PlacesPluginActivity extends AppCompatActivity implements
                                             ((Point) selectedCarmenFeature.geometry()).longitude()))
                                     .zoom(14)
                                     .build()), 4000);
+
+                    latLng=new LatLng(new LatLng(((Point) selectedCarmenFeature.geometry()).latitude(),
+                            ((Point) selectedCarmenFeature.geometry()).longitude()));
+
+
+                    Geocoder geocoder;
+
+                    List<Address> addresses = null;
+
+                    geocoder = new Geocoder(this, Locale.getDefault());
+
+                    try {
+
+                        addresses = geocoder.getFromLocation(latLng.getLatitude(), latLng.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+
+                    }
+
+                    String address = addresses.get(0).getAddressLine(0);
+
+                    searchedTV.setText(address);
+
+
 
                 }
             }
@@ -270,19 +372,31 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
             mapboxMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(position), 4000);
+            // Marker myDestinationMarker = mapboxMap.addMarker(new MarkerOptions().title("Current Location!").icon(IconFactory.getInstance(this).fromResource(R.drawable.marker_light_blue))
+           //         .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())));
+            latLng=new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
 
-            Marker myDestinationMarker = mapboxMap.addMarker(new MarkerOptions().title("Current Location!").icon(IconFactory.getInstance(this).fromResource(R.drawable.marker_light_blue))
-                    .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude())));
+            Geocoder geocoder;
+
+            List<Address> addresses = null;
+
+            geocoder = new Geocoder(this, Locale.getDefault());
+
+            try {
+
+                addresses = geocoder.getFromLocation(latLng.getLatitude(), latLng.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+            String address = addresses.get(0).getAddressLine(0);
+
+            searchedTV.setText(address);
 
         } else {
-
-            SharedPreferences pref1 = this.getSharedPreferences("MyPref", 0);
-
-            SharedPreferences.Editor editor = pref1.edit();
-
-            editor.putString("checkLocation", "cancel");
-
-            editor.commit();
 
             permissionsManager = new PermissionsManager(this);
 
