@@ -1,0 +1,7 @@
+Default public token
+
+key= pk.eyJ1IjoiYnV6endhcmUiLCJhIjoiY2t4cmx6dXRwN2c1bTJwbXVsZW40a2JuZCJ9.1NZgNHVKoEaGmT4zPAaM-g
+
+
+name bebelo
+key= sk.eyJ1IjoiYnV6endhcmUiLCJhIjoiY2t4cm02M3dhMHl1YzJwcDRidGJhdWgzNSJ9.5kD6cJP2FgCDlrwXFXDAzQ
