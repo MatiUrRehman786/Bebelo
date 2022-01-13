@@ -464,6 +464,8 @@ public class ExploreFragment extends Fragment implements
 
             if (getAllStoreResponse != null) {
 
+                markers = new ArrayList<>();
+
                 if (getAllStoreResponse.getResult().size() > 0) {
 
                     for (ResultItem resultItem : getAllStoreResponse.getResult()) {
@@ -472,6 +474,9 @@ public class ExploreFragment extends Fragment implements
 
                     }
                 }
+
+                mapboxMap.addMarkers(markers);
+
 
             }
 
@@ -2551,8 +2556,9 @@ public class ExploreFragment extends Fragment implements
                                     Log.d(TAG, "onResponse: Map Clear 2");
 
                                     getAllStoreResponse = new Gson().fromJson(response.body(), GetAllStoreResponse.class);
-
                                     if (getAllStoreResponse.getResult().size() > 0) {
+
+                                        markers = new ArrayList<>();
 
                                         for (ResultItem resultItem : getAllStoreResponse.getResult()) {
 
@@ -2567,12 +2573,12 @@ public class ExploreFragment extends Fragment implements
                                             }
 
                                         }
+
+                                        mapboxMap.addMarkers(markers);
                                     }
 
                                 }
-
                             }
-
                         }
                     }
 
@@ -2593,7 +2599,7 @@ public class ExploreFragment extends Fragment implements
             Log.d(TAG, "onResponse: Map Clear 3");
 
             mapboxMap.clear();
-
+            markers = new ArrayList<>();
             for (ResultItem resultItem : getAllStoreResponse.getResult()) {
 
                 if (isLiveData) {
@@ -2607,6 +2613,7 @@ public class ExploreFragment extends Fragment implements
                 }
 
             }
+            mapboxMap.addMarkers(markers);
         }
 
     }
