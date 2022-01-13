@@ -1,5 +1,6 @@
 package com.buzzware.bebelo.Fragments;
 
+import static com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_VIEWPORT;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
@@ -53,7 +54,9 @@ import com.buzzware.bebelo.databinding.AlertDialogDeleteBarBinding;
 import com.buzzware.bebelo.databinding.AlertDialogTimeScheduleBinding;
 import com.buzzware.bebelo.databinding.BottomSheetExploreDialogBinding;
 import com.buzzware.bebelo.databinding.FragmentExploreBinding;
+import com.buzzware.bebelo.eventBusModel.GetAllStoreEvent;
 import com.buzzware.bebelo.eventBusModel.MessageEvent;
+import com.buzzware.bebelo.eventBusModel.UpdateAsFilterEvent;
 import com.buzzware.bebelo.retrofit.Controller;
 import com.buzzware.bebelo.retrofit.DetailModel.BarBottleItem;
 import com.buzzware.bebelo.retrofit.DetailModel.DetailModelForAddBar;
@@ -114,7 +117,6 @@ public class ExploreFragment extends Fragment implements
         OnMapReadyCallback,
         PermissionsListener,
         MapboxMap.OnMarkerClickListener {
-
 
 
     FragmentExploreBinding binding;
@@ -417,11 +419,15 @@ public class ExploreFragment extends Fragment implements
 
             isLiveData = false;
 
+            Log.d(TAG, "onResponse: Map Clear 4");
+
             mapboxMap.clear();
 
             binding.liveBtn.setVisibility(View.GONE);
 
             binding.goLiveBtn.setVisibility(View.VISIBLE);
+
+            markers = new ArrayList<>();
 
             if (getAllStoreResponse != null) {
 
@@ -433,6 +439,10 @@ public class ExploreFragment extends Fragment implements
 
 
                     }
+
+                    Log.d(TAG, "setListener: Adding Markers");
+                    mapboxMap.addMarkers(markers);
+
                 }
 
             }
@@ -443,6 +453,8 @@ public class ExploreFragment extends Fragment implements
         binding.goLiveBtn.setOnClickListener(v -> {
 
             isLiveData = true;
+
+            Log.d(TAG, "onResponse: Map Clear 5");
 
             mapboxMap.clear();
 
@@ -1028,6 +1040,21 @@ public class ExploreFragment extends Fragment implements
 
     }
 
+    private void addDestinationIconSymbolLayer(Style loadedMapStyle) {
+        loadedMapStyle.addImage("destination-icon-id", BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.mapbox_marker_icon_default));
+        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
+        loadedMapStyle.addSource(geoJsonSource);
+
+        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
+
+        destinationSymbolLayer.withProperties(iconImage("destination-icon-id"),
+                iconAllowOverlap(true),
+                iconIgnorePlacement(true));
+
+        loadedMapStyle.addLayer(destinationSymbolLayer);
+    }
+
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
 
@@ -1046,6 +1073,8 @@ public class ExploreFragment extends Fragment implements
             mapStyle = style;
 
             enableLocationComponent(style);
+
+            addDestinationIconSymbolLayer(style);
 
         });
 
@@ -1123,13 +1152,14 @@ public class ExploreFragment extends Fragment implements
             }
 
             getAllStore();
+
             startTimer();
+
 
 
             mapboxMap.addOnCameraMoveListener(new MapboxMap.OnCameraMoveListener() {
                 @Override
                 public void onCameraMove() {
-
 
                     CameraPosition d = mapboxMap.getCameraPosition();
 
@@ -1141,7 +1171,6 @@ public class ExploreFragment extends Fragment implements
 
                 }
             });
-
 
 
             mapboxMap.setOnMarkerClickListener(this);
@@ -1238,6 +1267,15 @@ public class ExploreFragment extends Fragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         openDetailDialog();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(GetAllStoreEvent event) {
+        getAllStore();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(UpdateAsFilterEvent event) {
+        updateAsFilter();
     }
 
     @Override
@@ -1596,7 +1634,9 @@ public class ExploreFragment extends Fragment implements
 
     private void getAllStore() {
 
-        mapboxMap.clear();
+        Log.d(TAG, "onResponse: Map Clear 1");
+
+//        mapboxMap.clear();
 
 
 //
@@ -1618,6 +1658,8 @@ public class ExploreFragment extends Fragment implements
                             getAllStoreResponse = new Gson().fromJson(response.body(), GetAllStoreResponse.class);
 
                             jsonData = response.body();
+
+                            markers = new ArrayList<>();
 
                             if (getAllStoreResponse.getResult().size() > 0) {
 
@@ -1642,6 +1684,14 @@ public class ExploreFragment extends Fragment implements
                                 }
                             }
 
+                            Log.d(TAG, "setListener: Adding Markers");
+
+                            mapboxMap.addMarkers(markers);
+//                            mapboxMap.addMarkers(markers);
+//                            mapboxMap.addMarkers(markers);
+//                            mapboxMap.addMarkers(markers);
+//                            mapboxMap.addMarkers(markers);
+
                             Gson gson = new Gson();
 
                             String jsonData = gson.toJson(getAllStoreResponse);
@@ -1662,7 +1712,7 @@ public class ExploreFragment extends Fragment implements
 
     private void calculateAndAddLiveMarkers(ResultItem resultItem) {
 
-        try {
+//        try {
 
             Double lat = Double.parseDouble(resultItem.getBlat().toString());
 
@@ -1688,20 +1738,28 @@ public class ExploreFragment extends Fragment implements
 
             if (detail.getBarHas() != null && detail.getBarHas().get(1).isIsSelected()) {
 
-                if (detail.getBarAnounce() != null) {
-
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue_rooftop), 0, 0, color);
-
-                } else if (detail.getFreeTable() != null) {
+                if (detail.getFreeTable() != null) {
                     if (detail.getFreeTable().isFreeTable()) {
                         canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
                                 R.drawable.marker_light_red_rooftop), 0, 0, color);
 
                     } else {
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                        if (detail.getBarAnounce() != null) {
+
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_blue_rooftop), 0, 0, color);
+
+                        } else {
+
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                        }
                     }
+
+                }else if (detail.getBarAnounce() != null) {
+
+                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                            R.drawable.marker_light_blue_rooftop), 0, 0, color);
 
                 } else {
 
@@ -1712,12 +1770,7 @@ public class ExploreFragment extends Fragment implements
 
             } else {
 
-                if (detail.getBarAnounce() != null) {
-
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue), 0, 0, color);
-
-                } else if (detail.getFreeTable() != null) {
+                if (detail.getFreeTable() != null) {
 
                     if (detail.getFreeTable().isFreeTable()) {
 
@@ -1725,12 +1778,24 @@ public class ExploreFragment extends Fragment implements
                                 R.drawable.marker_light_red), 0, 0, color);
 
                     } else {
+                        if (detail.getBarAnounce() != null) {
 
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_simple), 0, 0, color);
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_blue), 0, 0, color);
+
+                        } else {
+
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_simple), 0, 0, color);
+                        }
 
                     }
 
+
+                }else if (detail.getBarAnounce() != null) {
+
+                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                            R.drawable.marker_light_blue), 0, 0, color);
 
                 } else {
 
@@ -1760,7 +1825,10 @@ public class ExploreFragment extends Fragment implements
 
             int day = calendar.get(Calendar.DAY_OF_WEEK);
 
+            Log.d(TAG, "calculateAndAddLiveMarkers: Day "+day+"lat "+lat+"lng "+lng);
+
             switch (day) {
+
                 case Calendar.MONDAY:
 
                     if (isValidTime(detail, "Monday")) {
@@ -1860,11 +1928,11 @@ public class ExploreFragment extends Fragment implements
 
             Log.d("getAllStoreResponse", "" + lat + "/" + lng);
 
-        } catch (Exception e) {
-
-            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
-
-        }
+//        } catch (Exception e) {
+//
+//            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
+//
+//        }
 
     }
 
@@ -1876,11 +1944,10 @@ public class ExploreFragment extends Fragment implements
 
         if (SessionManager.getInstance().getFilter(context).equals("No")) {
 
-            Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+            markers.add(new MarkerOptions().title(resultItem.getBname())
                     .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                     .setTitle(json)
                     .position(new LatLng(lat, lng)));
-
 
 
         } else if (SessionManager.getInstance().getFilter(context).equals("Both")) {
@@ -1889,10 +1956,11 @@ public class ExploreFragment extends Fragment implements
 
                 if (detail.getBarHas().get(0).isIsSelected() && detail.getBarHas().get(1).isIsSelected()) {
 
-                    Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+                    markers.add(new MarkerOptions().title(resultItem.getBname())
                             .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                             .setTitle(json)
                             .position(new LatLng(lat, lng)));
+
 
 
                 }
@@ -1906,10 +1974,11 @@ public class ExploreFragment extends Fragment implements
 
                 if (detail.getBarHas().get(0).isIsSelected()) {
 
-                    Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+                    markers.add(new MarkerOptions().title(resultItem.getBname())
                             .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                             .setTitle(json)
                             .position(new LatLng(lat, lng)));
+
 
                 }
             }
@@ -1923,10 +1992,11 @@ public class ExploreFragment extends Fragment implements
 
                     if (detail.getBarHas().get(1).isIsSelected()) {
 
-                        Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+                        markers.add(new MarkerOptions().title(resultItem.getBname())
                                 .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                                 .setTitle(json)
                                 .position(new LatLng(lat, lng)));
+
 
                     }
 
@@ -1937,9 +2007,11 @@ public class ExploreFragment extends Fragment implements
 
     }
 
+    List<MarkerOptions> markers;
+
     private void calculateAndAddAllMarker(ResultItem resultItem) {
 
-        try {
+//        try {
 
             Double lat = Double.parseDouble(resultItem.getBlat().toString());
 
@@ -1963,12 +2035,7 @@ public class ExploreFragment extends Fragment implements
 
             if (detail.getBarHas() != null && detail.getBarHas().get(1).isIsSelected()) {
 
-                if (detail.getBarAnounce() != null) {
-
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue_rooftop), 0, 0, color);
-
-                } else if (detail.getFreeTable() != null) {
+                if (detail.getFreeTable() != null) {
 
                     if (detail.getFreeTable().isFreeTable()) {
 
@@ -1976,12 +2043,24 @@ public class ExploreFragment extends Fragment implements
                                 R.drawable.marker_light_red_rooftop), 0, 0, color);
 
                     } else {
+                        if (detail.getBarAnounce() != null) {
 
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_blue_rooftop), 0, 0, color);
+
+                        } else {
+
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                        }
 
                     }
 
+
+                }else if (detail.getBarAnounce() != null) {
+
+                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                            R.drawable.marker_light_blue_rooftop), 0, 0, color);
 
                 } else {
 
@@ -1992,12 +2071,7 @@ public class ExploreFragment extends Fragment implements
 
             } else {
 
-                if (detail.getBarAnounce() != null) {
-
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue), 0, 0, color);
-
-                } else if (detail.getFreeTable() != null) {
+                if (detail.getFreeTable() != null) {
 
                     if (detail.getFreeTable().isFreeTable()) {
 
@@ -2005,11 +2079,23 @@ public class ExploreFragment extends Fragment implements
                                 R.drawable.marker_light_red), 0, 0, color);
 
                     } else {
+                        if (detail.getBarAnounce() != null) {
 
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_simple), 0, 0, color);
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_blue), 0, 0, color);
+
+                        } else {
+
+                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.marker_light_simple), 0, 0, color);
+                        }
 
                     }
+
+                }else if (detail.getBarAnounce() != null) {
+
+                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                            R.drawable.marker_light_blue), 0, 0, color);
 
                 } else {
 
@@ -2041,11 +2127,11 @@ public class ExploreFragment extends Fragment implements
 
             if (SessionManager.getInstance().getFilter(context).equals("No")) {
 
-                Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
-                        .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
-                        .setTitle(json)
-                        .position(new LatLng(lat, lng)));
-
+                Log.d(TAG, "calculateAndAddAllMarker: adding marker No");
+               markers.add(new MarkerOptions().title(resultItem.getBname())
+                       .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
+                       .setTitle(json)
+                       .position(new LatLng(lat, lng)));
 
             } else if (SessionManager.getInstance().getFilter(context).equals("Both")) {
 
@@ -2053,12 +2139,12 @@ public class ExploreFragment extends Fragment implements
 
                     if (detail.getBarHas().get(0).isIsSelected() && detail.getBarHas().get(1).isIsSelected()) {
 
-                        Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+                        Log.d(TAG, "calculateAndAddAllMarker: adding marker Selected");
+
+                        markers.add(new MarkerOptions().title(resultItem.getBname())
                                 .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                                 .setTitle(json)
                                 .position(new LatLng(lat, lng)));
-
-
                     }
 
                 }
@@ -2069,7 +2155,8 @@ public class ExploreFragment extends Fragment implements
 
                     if (detail.getBarHas().get(0).isIsSelected()) {
 
-                        Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+                        Log.d(TAG, "calculateAndAddAllMarker: adding marker BarWithTerrace");
+                        markers.add(new MarkerOptions().title(resultItem.getBname())
                                 .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                                 .setTitle(json)
                                 .position(new LatLng(lat, lng)));
@@ -2086,7 +2173,8 @@ public class ExploreFragment extends Fragment implements
 
                         if (detail.getBarHas().get(1).isIsSelected()) {
 
-                            Marker marker = mapboxMap.addMarker(new MarkerOptions().title(resultItem.getBname())
+                            Log.d(TAG, "calculateAndAddAllMarker: adding marker Rooftops");
+                            markers.add(new MarkerOptions().title(resultItem.getBname())
                                     .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                                     .setTitle(json)
                                     .position(new LatLng(lat, lng)));
@@ -2101,13 +2189,13 @@ public class ExploreFragment extends Fragment implements
 
 //           .icon(IconFactory.getInstance(getContext()).fromResource(R.drawable.marker_light_blue))
 
-            Log.d("getAllStoreResponse", "" + lat + "/" + lng);
+            Log.d(TAG, "" + lat + "/" + lng);
 
-        } catch (Exception e) {
+//        } catch (Exception e) {
 
-            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
+//            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
 
-        }
+//        }
 
     }
 
@@ -2396,7 +2484,7 @@ public class ExploreFragment extends Fragment implements
         int toastDurationInMilliSeconds = 1200000;
 
 
-        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 60000 /*Tick duration*/) {
+        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 40000 /*Tick duration*/) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -2445,6 +2533,8 @@ public class ExploreFragment extends Fragment implements
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
 
+
+                        Log.d(TAG, "onResponse: With Timer");
                         if (response.body() != null) {
 
 
@@ -2452,13 +2542,13 @@ public class ExploreFragment extends Fragment implements
                                 GetAllStoreResponse newGetAllStoreResponse = new Gson().fromJson(response.body(), GetAllStoreResponse.class);
 
 
-
-
                                 if (jsonData == null || !jsonData.equalsIgnoreCase(response.body())) {
 
                                     jsonData = response.body();
 
                                     mapboxMap.clear();
+
+                                    Log.d(TAG, "onResponse: Map Clear 2");
 
                                     getAllStoreResponse = new Gson().fromJson(response.body(), GetAllStoreResponse.class);
 
@@ -2494,5 +2584,32 @@ public class ExploreFragment extends Fragment implements
                     }
                 });
     }
+
+    public void updateAsFilter(){
+
+
+        if (getAllStoreResponse.getResult().size() > 0) {
+
+            Log.d(TAG, "onResponse: Map Clear 3");
+
+            mapboxMap.clear();
+
+            for (ResultItem resultItem : getAllStoreResponse.getResult()) {
+
+                if (isLiveData) {
+
+                    calculateAndAddLiveMarkers(resultItem);
+
+                } else {
+
+                    calculateAndAddAllMarker(resultItem);
+
+                }
+
+            }
+        }
+
+    }
+
 
 }

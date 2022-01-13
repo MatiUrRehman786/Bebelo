@@ -91,8 +91,6 @@ public class Home extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
 
-
-
             SetSelectedTab(2);
 
         });
@@ -135,6 +133,8 @@ public class Home extends AppCompatActivity {
         fragment = new ExploreFragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.containerExplore, fragment).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
 
         SetSelectedTab(0);
 

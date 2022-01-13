@@ -28,6 +28,7 @@ import com.buzzware.bebelo.classes.CustomProgressDialog;
 import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.DialogAddTextBinding;
 import com.buzzware.bebelo.databinding.FragmentProfileBinding;
+import com.buzzware.bebelo.eventBusModel.GetAllStoreEvent;
 import com.buzzware.bebelo.retrofit.Controller;
 import com.buzzware.bebelo.retrofit.DetailModel.BarAnounce;
 import com.buzzware.bebelo.retrofit.DetailModel.BarBottleItem;
@@ -37,6 +38,8 @@ import com.buzzware.bebelo.retrofit.Login.LoginResponse;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -262,6 +265,8 @@ public class ProfileFragment extends Fragment {
                 loginResponse.getResult().setBdetail(json);
                 updateBarNow(loginResponse);
 
+                EventBus.getDefault().post(new GetAllStoreEvent());
+
             }
         });
 
@@ -271,10 +276,13 @@ public class ProfileFragment extends Fragment {
 
             if (isChecked) {
 
+                EventBus.getDefault().post(new GetAllStoreEvent());
+
                 freeTable.setFreeTable(true);
 
             } else {
 
+                EventBus.getDefault().post(new GetAllStoreEvent());
                 freeTable.setFreeTable(false);
 
             }
@@ -404,6 +412,8 @@ public class ProfileFragment extends Fragment {
                     String json = gson.toJson(currentUserDetail);
                     loginResponse.getResult().setBdetail(json);
                     updateBarNow(loginResponse);
+
+                    EventBus.getDefault().post(new GetAllStoreEvent());
 
 
                 } else {

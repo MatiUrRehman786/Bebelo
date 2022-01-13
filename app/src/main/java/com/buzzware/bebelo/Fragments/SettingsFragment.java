@@ -24,6 +24,8 @@ import com.buzzware.bebelo.R;
 import com.buzzware.bebelo.classes.Constant;
 import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.FragmentSettingsBinding;
+import com.buzzware.bebelo.eventBusModel.GetAllStoreEvent;
+import com.buzzware.bebelo.eventBusModel.UpdateAsFilterEvent;
 import com.buzzware.bebelo.retrofit.Login.LoginResponse;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.nabinbhandari.android.permissions.PermissionHandler;
@@ -31,6 +33,8 @@ import com.nabinbhandari.android.permissions.Permissions;
 import com.squareup.picasso.Picasso;
 
 import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -211,45 +215,9 @@ public class SettingsFragment extends Fragment {
 
         binding.loginTV.setOnClickListener(v -> startActivity(new Intent(context, BarLogin.class)));
 
-        binding.roofTopCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-            if(isChecked){
-
-                binding.roofTopRL.setBackgroundColor(getResources().getColor(R.color.greenish_blue));
-
-                binding.roofTopTV.setTextColor(getResources().getColor(R.color.white));
-
-                if(binding.barWithTerraceCB.isChecked()){
-
-                    SessionManager.getInstance().setFilter(context,"Both");
-
-                } else {
-
-                    SessionManager.getInstance().setFilter(context,"Rooftop");
-
-                }
-
-
-            } else {
-
-                binding.roofTopRL.setBackgroundColor(getResources().getColor(R.color.white));
-
-                binding.roofTopTV.setTextColor(getResources().getColor(R.color.light_black));
-
-                if(binding.barWithTerraceCB.isChecked()){
-
-                    SessionManager.getInstance().setFilter(context,"BarWithTerrace");
-
-                } else {
-
-                    SessionManager.getInstance().setFilter(context,"No");
-
-                }
-
-            }
-        });
-
         binding.barWithTerraceCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+          //  Toast.makeText(context, " bar with change called", Toast.LENGTH_SHORT).show();
 
             if(isChecked){
 
@@ -289,7 +257,81 @@ public class SettingsFragment extends Fragment {
                 }
 
             }
+
+            EventBus.getDefault().post(new UpdateAsFilterEvent());
+
         });
+
+        binding.barWithTerraceRL.setOnClickListener(v->{
+
+            if(binding.barWithTerraceCB.isChecked()){
+
+                binding.barWithTerraceCB.setChecked(false);
+
+            }else{
+
+                binding.barWithTerraceCB.setChecked(true);
+
+            }
+
+        });
+
+         binding.roofTopRL.setOnClickListener(v->{
+
+            if(binding.roofTopCB.isChecked()){
+
+                binding.roofTopCB.setChecked(false);
+
+            }else{
+
+                binding.roofTopCB.setChecked(true);
+
+            }
+
+        });
+
+        binding.roofTopCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        //    Toast.makeText(context, " roof top change called", Toast.LENGTH_SHORT).show();
+
+            if(isChecked){
+
+                binding.roofTopRL.setBackgroundColor(getResources().getColor(R.color.greenish_blue));
+
+                binding.roofTopTV.setTextColor(getResources().getColor(R.color.white));
+
+                if(binding.barWithTerraceCB.isChecked()){
+
+                    SessionManager.getInstance().setFilter(context,"Both");
+
+                } else {
+
+                    SessionManager.getInstance().setFilter(context,"Rooftop");
+
+                }
+
+
+            } else {
+
+                binding.roofTopRL.setBackgroundColor(getResources().getColor(R.color.white));
+
+                binding.roofTopTV.setTextColor(getResources().getColor(R.color.light_black));
+
+                if(binding.barWithTerraceCB.isChecked()){
+
+                    SessionManager.getInstance().setFilter(context,"BarWithTerrace");
+
+                } else {
+
+                    SessionManager.getInstance().setFilter(context,"No");
+
+                }
+
+            }
+
+            EventBus.getDefault().post(new UpdateAsFilterEvent());
+
+        });
+
 
         binding.instagramRL.setOnClickListener(v->{
 

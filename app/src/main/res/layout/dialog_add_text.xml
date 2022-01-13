@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/textET"
+        android:textCursorDrawable="@drawable/cursor_black"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"

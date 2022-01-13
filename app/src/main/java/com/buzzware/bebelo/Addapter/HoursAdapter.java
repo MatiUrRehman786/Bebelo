@@ -63,9 +63,18 @@ public class HoursAdapter extends RecyclerView.Adapter<HoursAdapter.ViewHolder> 
 
         }
 
-        viewHolder.binding.startTimeET.setText(hourModel.getStartTime());
+        if(hourModel.getEndTime().equals("0"))
+            viewHolder.binding.endTimeET.setText("");
 
-        viewHolder.binding.endTimeET.setText(hourModel.getEndTime());
+        else
+            viewHolder.binding.endTimeET.setText(hourModel.getEndTime());
+
+        if(hourModel.getStartTime().equals("0"))
+            viewHolder.binding.startTimeET.setText("");
+
+        else
+            viewHolder.binding.startTimeET.setText(hourModel.getStartTime());
+
 
         viewHolder.binding.button.setOnClickListener(v->{
 

@@ -293,7 +293,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/cabin_bold"
-                                    android:text="Bars with terraces"
+                                    android:text="Terraces"
                                     android:textColor="@color/light_black"
                                     android:textSize="@dimen/_12sdp"
                                     android:textStyle="bold" />

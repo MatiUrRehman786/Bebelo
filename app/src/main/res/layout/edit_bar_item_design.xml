@@ -68,6 +68,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="normal"
                     android:imeOptions="actionDone"
+                    android:textCursorDrawable="@drawable/cursor_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/icon1"
                     app:layout_constraintStart_toStartOf="parent" />

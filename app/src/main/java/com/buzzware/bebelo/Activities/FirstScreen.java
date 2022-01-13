@@ -26,6 +26,8 @@ public class FirstScreen extends AppCompatActivity {
 
     Context context;
 
+    boolean genderSelected=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,16 @@ public class FirstScreen extends AppCompatActivity {
 
                 if (isValid()) {
 
-                    startActivity(new Intent(FirstScreen.this, Home.class));
+                    if(genderSelected){
+
+                        startActivity(new Intent(FirstScreen.this, Home.class));
+
+                    }else{
+
+                        Toast.makeText(FirstScreen.this, "Please Select Your Gender!" , Toast.LENGTH_LONG).show();
+
+                    }
+
 
                 } else {
                     Toast.makeText(FirstScreen.this, "Date of birth and gender is not selected please provide date of birth and select gender or your age must be 18+" , Toast.LENGTH_LONG).show();
@@ -73,6 +84,7 @@ public class FirstScreen extends AppCompatActivity {
         binding.btnMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                genderSelected=true;
                 SetGenderView(0);
             }
         });
@@ -80,6 +92,7 @@ public class FirstScreen extends AppCompatActivity {
         binding.btnFemale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                genderSelected=true;
                 SetGenderView(1);
             }
         });
@@ -330,5 +343,10 @@ public class FirstScreen extends AppCompatActivity {
             binding.btnFemale.setBackground(getResources().getDrawable(R.drawable.rounder_border_black_light));
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

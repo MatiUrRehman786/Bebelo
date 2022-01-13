@@ -343,6 +343,8 @@ public class EditBar extends AppCompatActivity implements EditPricesCallback, Ho
 
     }
 
+
+
     private void setHoursRecycler() {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

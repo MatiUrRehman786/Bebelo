@@ -101,9 +101,12 @@
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
                                     android:hint="@string/type_here"
+                                    android:imeOptions="actionDone"
                                     android:inputType="text"
                                     android:maxLines="1"
                                     android:textColor="@color/black"
+                                    android:textColorHint="@color/light_grayy"
+                                    android:textCursorDrawable="@drawable/cursor_black"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
 
@@ -148,9 +151,11 @@
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
                                     android:gravity="center_vertical"
+                                    android:hint="Address"
                                     android:maxLines="1"
-                                    android:text="Select Location"
+                                    android:paddingLeft="@dimen/_4sdp"
                                     android:textColor="@color/black"
+                                    android:textColorHint="@color/light_grayy"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
 
@@ -163,6 +168,51 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/doted_rect">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/selectedImageIV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:riv_corner_radius="@dimen/_3sdp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/selectImageBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/image_select" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/cabin_regular"
+                            android:text="Add a photo of your bar"
+                            android:textAlignment="center"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -180,11 +230,20 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/cabin_regular"
-                            android:text="Drink"
+                            android:text="My bar has"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             android:textStyle="bold" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:fontFamily="@font/cabin_regular"
+                            android:text="(you can add more later)"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="normal" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -240,6 +299,7 @@
                                     android:paddingRight="@dimen/_10sdp">
 
                                     <androidx.appcompat.widget.AppCompatEditText
+                                        android:textCursorDrawable="@drawable/cursor_black"
                                         android:id="@+id/canaPriceET"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
@@ -251,6 +311,7 @@
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_8sdp"
                                         android:textStyle="normal"
+                                        android:imeOptions="actionDone"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toStartOf="@id/icon01"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -335,9 +396,11 @@
                                         android:hint="Price"
                                         android:inputType="number"
                                         android:maxLines="1"
+                                        android:imeOptions="actionDone"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_8sdp"
                                         android:textStyle="normal"
+                                        android:textCursorDrawable="@drawable/cursor_black"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toStartOf="@id/icon02"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -374,40 +437,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
                     android:orientation="vertical">
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:fontFamily="@font/cabin_regular"
-                            android:text="Drink prices"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12sdp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:fontFamily="@font/cabin_regular"
-                            android:text="(you can add more later)"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12sdp"
-                            android:textStyle="normal" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@color/white"
                         android:orientation="vertical">
 
@@ -458,6 +493,7 @@
                                     android:paddingRight="@dimen/_10sdp">
 
                                     <androidx.appcompat.widget.AppCompatEditText
+                                        android:textCursorDrawable="@drawable/cursor_black"
                                         android:id="@+id/tanquerayPriceET"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
@@ -469,6 +505,7 @@
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_8sdp"
                                         android:textStyle="normal"
+                                        android:imeOptions="actionDone"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toStartOf="@id/icon1"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -546,7 +583,8 @@
                                     android:paddingLeft="@dimen/_10sdp"
                                     android:paddingRight="@dimen/_10sdp">
 
-                                    <EditText
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:textCursorDrawable="@drawable/cursor_black"
                                         android:id="@+id/beefeaterPriceET"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
@@ -555,6 +593,7 @@
                                         android:hint="Price"
                                         android:inputType="number"
                                         android:maxLines="1"
+                                        android:imeOptions="actionDone"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_8sdp"
                                         android:textStyle="normal"
@@ -632,7 +671,8 @@
                                     android:paddingLeft="@dimen/_10sdp"
                                     android:paddingRight="@dimen/_10sdp">
 
-                                    <EditText
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:textCursorDrawable="@drawable/cursor_black"
                                         android:id="@+id/brugalAnejoPriceET"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
@@ -644,6 +684,7 @@
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_8sdp"
                                         android:textStyle="normal"
+                                        android:imeOptions="actionDone"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toStartOf="@id/icon3"
                                         app:layout_constraintStart_toStartOf="parent" />
@@ -686,61 +727,14 @@
                     android:id="@+id/highRollerRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:nestedScrollingEnabled="false" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/warTimeRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:nestedScrollingEnabled="false" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:background="@drawable/doted_rect">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/selectedImageIV"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="@dimen/_5sdp"
-                        android:scaleType="centerCrop"
-                        app:riv_corner_radius="@dimen/_10sdp" />
-
-
-                    <LinearLayout
-                        android:id="@+id/selectImageBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/_40sdp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/image_select" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/cabin_regular"
-                            android:text="Add a photo of your bar"
-                            android:textAlignment="center"
-                            android:textColor="@color/light_black"
-                            android:textSize="@dimen/_10sdp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1035,10 +1029,13 @@
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:hint="@string/type_here"
+                                    android:hint="Your name"
+                                    android:imeOptions="actionDone"
                                     android:inputType="text"
                                     android:maxLines="1"
                                     android:textColor="@color/black"
+                                    android:textColorHint="@color/light_grayy"
+                                    android:textCursorDrawable="@drawable/cursor_black"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
 
@@ -1075,14 +1072,17 @@
                                 android:layout_weight="0.5">
 
                                 <EditText
+                                    android:textCursorDrawable="@drawable/cursor_black"
+                                    android:imeOptions="actionDone"
                                     android:id="@+id/customerPhoneET"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:hint="@string/type_here"
+                                    android:hint="Phone no."
                                     android:inputType="number"
                                     android:maxLines="1"
+                                    android:textColorHint="@color/light_grayy"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
@@ -1135,14 +1135,17 @@
                                 android:layout_weight="0.5">
 
                                 <EditText
+                                    android:textCursorDrawable="@drawable/cursor_black"
+                                    android:imeOptions="actionDone"
                                     android:id="@+id/customerEmailET"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:hint="@string/type_here"
+                                    android:hint="Email"
                                     android:inputType="text"
                                     android:maxLines="1"
+                                    android:textColorHint="@color/light_grayy"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
@@ -1182,14 +1185,17 @@
                                 android:layout_weight="0.5">
 
                                 <EditText
+                                    android:textCursorDrawable="@drawable/cursor_black"
+                                    android:imeOptions="actionDone"
                                     android:id="@+id/customerPasswordET"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="@android:color/transparent"
                                     android:fontFamily="@font/cabin_regular"
-                                    android:hint="@string/type_here"
+                                    android:hint="Password"
                                     android:inputType="textPassword"
                                     android:maxLines="1"
+                                    android:textColorHint="@color/light_grayy"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="normal" />
@@ -1258,7 +1264,6 @@
                     </LinearLayout>
 
                     <CheckBox
-                        android:visibility="invisible"
                         android:id="@+id/privaceCB"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="20dp"
@@ -1266,7 +1271,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/_15sdp"
                         android:buttonTint="@color/light_black"
-                        android:checked="false" />
+                        android:checked="false"
+                        android:visibility="invisible" />
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

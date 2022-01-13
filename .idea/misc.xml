@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable-v24/curser_drawable.xml" value="0.2890625" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/curser_black.xml" value="0.2890625" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/cursorer_black.xml" value="0.2890625" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/edit_bar_item_design.xml" value="0.2734375" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/gradient_light_blue.xml" value="0.2734375" />
@@ -12,7 +14,7 @@
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/rounder_corner_gray.xml" value="0.2890625" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/rounder_corner_white_two_top.xml" value="0.2890625" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/drawable/rounder_corner_white_two_top_small.xml" value="0.2890625" />
-        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_add_bar.xml" value="0.2543604651162791" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_add_bar.xml" value="0.2669383596535914" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_bar_detail.xml" value="0.27291666666666664" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_bar_login.xml" value="0.27291666666666664" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/activity_bar_profile.xml" value="0.27291666666666664" />
@@ -27,10 +29,12 @@
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/alert_dialog_contact_us.xml" value="0.2" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/alert_dialog_delete_bar.xml" value="0.17" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/alert_dialog_time_schedual.xml" value="0.19375" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/alert_dialog_time_schedule.xml" value="0.23333333333333334" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/app_bar_single_side.xml" value="0.22" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/app_bar_single_side_login.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bar_detail_app_bar.xml" value="0.1537037037037037" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bar_profile_app_bar.xml" value="0.1537037037037037" />
+        <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bottom_dialog.xml" value="0.23333333333333334" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bottom_sheet_explore.xml" value="0.27291666666666664" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bottom_sheet_explore_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/Buzzware/Bebelo/app/src/main/res/layout/bottom_sheet_explore_small.xml" value="0.1537037037037037" />
