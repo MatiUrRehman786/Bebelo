@@ -7,13 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".Activities.PlacesPluginActivity">
 
+
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/edit_bar_app_bar" />
+
+    <LinearLayout
+        android:id="@+id/containerLL"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounder_corner_white_two_top"
+        android:padding="@dimen/_15sdp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.85">
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/item_bottle" />
+
+
+    </LinearLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchTVCL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounder_corner_white_two_top"
@@ -21,57 +49,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.9">
-
-        <View
-            android:id="@+id/lineView"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/rounder_corner_gray"
-            app:layout_constraintBottom_toTopOf="@id/searchTV"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintWidth_percent="0.85">
 
         <TextView
             android:id="@+id/searchTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cabin_medium"
-            android:padding="@dimen/_10sdp"
-            android:hint="search"
-            android:background="@drawable/rounder_corner_gray"
             android:layout_marginBottom="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@id/cancelBtn"
+            android:background="@drawable/rounder_corner_gray"
+            android:fontFamily="@font/cabin_medium"
+            android:hint="search"
+            android:padding="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/cancelBtn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30sdp"
-            android:fontFamily="@font/cabin_medium"
-            android:gravity="center"
-            android:text="CANCEL"
-            android:textColor="@color/lightBlue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/doneNewBtn"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.45" />
-
-        <TextView
-            android:id="@+id/doneNewBtn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/rounder_corner_blue"
-            android:fontFamily="@font/cabin_medium"
-            android:gravity="center"
-            android:text="DONE"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cancelBtn"
-            app:layout_constraintWidth_percent="0.45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

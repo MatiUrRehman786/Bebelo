@@ -2,15 +2,18 @@ package com.buzzware.bebelo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.buzzware.bebelo.R;
 import com.buzzware.bebelo.classes.CustomProgressDialog;
 import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.ActivityBarLoginBinding;
+import com.buzzware.bebelo.databinding.AlertDialogContactUsBinding;
 import com.buzzware.bebelo.retrofit.Controller;
 import com.buzzware.bebelo.retrofit.Login.LoginResponse;
 import com.google.gson.Gson;
@@ -62,7 +65,30 @@ public class BarLogin extends AppCompatActivity {
             }
         });
 
+        binding.forgotPasswordTV.setOnClickListener(v->{
+            showContactUsDialog();
+        });
+
     }
+
+    private void showContactUsDialog() {
+
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+
+        dialog.setCancelable(true);
+
+        AlertDialogContactUsBinding contactUsBinding = AlertDialogContactUsBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(contactUsBinding.getRoot());
+
+        contactUsBinding.exitIconIV.setOnClickListener(v->{
+            dialog.dismiss();
+        });
+
+        dialog.show();
+
+    }
+
 
     private void loginNow() {
 

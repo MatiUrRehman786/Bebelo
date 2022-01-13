@@ -214,6 +214,7 @@
                     <include
                         android:id="@+id/brugalItem"
                         layout="@layout/drink_item" />
+
                 </LinearLayout>
 
                 <LinearLayout

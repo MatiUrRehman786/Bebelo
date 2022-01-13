@@ -1161,7 +1161,6 @@ public class ExploreFragment extends Fragment implements
             startTimer();
 
 
-
             mapboxMap.addOnCameraMoveListener(new MapboxMap.OnCameraMoveListener() {
                 @Override
                 public void onCameraMove() {
@@ -1278,6 +1277,7 @@ public class ExploreFragment extends Fragment implements
     public void onMessageEvent(GetAllStoreEvent event) {
         getAllStore();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(UpdateAsFilterEvent event) {
         updateAsFilter();
@@ -1717,227 +1717,231 @@ public class ExploreFragment extends Fragment implements
 
     private void calculateAndAddLiveMarkers(ResultItem resultItem) {
 
-//        try {
+        try {
 
-            Double lat = Double.parseDouble(resultItem.getBlat().toString());
+        Double lat = Double.parseDouble(resultItem.getBlat().toString());
 
-            Double lng = Double.parseDouble(resultItem.getBlng().toString());
+        Double lng = Double.parseDouble(resultItem.getBlng().toString());
 
-            Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
 
-            Bitmap bmp = Bitmap.createBitmap(220, 220, conf);
+        Bitmap bmp = Bitmap.createBitmap(200, 200, conf);
 
-            Canvas canvas1 = new Canvas(bmp);
+        Canvas canvas1 = new Canvas(bmp);
 
-            Paint color = new Paint();
+        Paint color = new Paint();
 
-            color.setTextSize(25);
+        color.setTextSize(25);
 
-            color.setColor(Color.BLACK);
+        color.setColor(Color.BLACK);
 
-            Log.d("jsonId", resultItem.getId());
+        Log.d("jsonId", resultItem.getId());
 
-            DetailModelForAddBar detail = new Gson().fromJson(resultItem.getBdetail(), DetailModelForAddBar.class);
+        DetailModelForAddBar detail = new Gson().fromJson(resultItem.getBdetail(), DetailModelForAddBar.class);
 
-            String markerPrice = getPrice(detail);
+        String markerPrice = getPrice(detail);
 
-            if (detail.getBarHas() != null && detail.getBarHas().get(1).isIsSelected()) {
+        if (detail.getBarHas() != null && detail.getBarHas().get(1).isIsSelected()) {
 
-                if (detail.getFreeTable() != null) {
-                    if (detail.getFreeTable().isFreeTable()) {
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_red_rooftop), 0, 0, color);
-
-                    } else {
-                        if (detail.getBarAnounce() != null) {
-
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_blue_rooftop), 0, 0, color);
-
-                        } else {
-
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_simple_rooftop), 0, 0, color);
-                        }
-                    }
-
-                }else if (detail.getBarAnounce() != null) {
-
+            if (detail.getFreeTable() != null) {
+                if (detail.getFreeTable().isFreeTable()) {
                     canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue_rooftop), 0, 0, color);
+                            R.drawable.marker_light_red_rooftop), 0, 0, color);
 
                 } else {
+                    if (detail.getBarAnounce() != null) {
 
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_blue_rooftop), 0, 0, color);
 
+                    } else {
+
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                    }
                 }
+
+            } else if (detail.getBarAnounce() != null) {
+
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_blue_rooftop), 0, 0, color);
 
             } else {
 
-                if (detail.getFreeTable() != null) {
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_simple_rooftop), 0, 0, color);
 
-                    if (detail.getFreeTable().isFreeTable()) {
+            }
 
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_red), 0, 0, color);
+        } else {
 
-                    } else {
-                        if (detail.getBarAnounce() != null) {
+            if (detail.getFreeTable() != null) {
 
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_blue), 0, 0, color);
-
-                        } else {
-
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_simple), 0, 0, color);
-                        }
-
-                    }
-
-
-                }else if (detail.getBarAnounce() != null) {
+                if (detail.getFreeTable().isFreeTable()) {
 
                     canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue), 0, 0, color);
+                            R.drawable.marker_light_red), 0, 0, color);
 
                 } else {
+                    if (detail.getBarAnounce() != null) {
 
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_simple), 0, 0, color);
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_blue), 0, 0, color);
 
-                }
+                    } else {
 
-                if (markerPrice.length() == 1) {
-
-                    canvas1.drawText(markerPrice + "\u20ac", 105, 117, color);
-
-                } else if (markerPrice.length() == 2) {
-
-                    canvas1.drawText(markerPrice + "\u20ac", 98, 117, color);
-
-                } else if (markerPrice.length() == 3) {
-
-                    canvas1.drawText(markerPrice + "\u20ac", 90, 117, color);
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_simple), 0, 0, color);
+                    }
 
                 }
 
 
+            } else if (detail.getBarAnounce() != null) {
+
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_blue), 0, 0, color);
+
+            } else {
+
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_simple), 0, 0, color);
+
+            }
+            if (markerPrice.equals("0")) {
+
+                canvas1.drawText("", 105, 117, color);
+
+
+            } else if (markerPrice.length() == 1) {
+
+                canvas1.drawText(markerPrice + "\u20ac", 105, 117, color);
+
+            } else if (markerPrice.length() == 2) {
+
+                canvas1.drawText(markerPrice + "\u20ac", 98, 117, color);
+
+            } else if (markerPrice.length() == 3) {
+
+                canvas1.drawText(markerPrice + "\u20ac", 90, 117, color);
+
             }
 
-            Calendar calendar = Calendar.getInstance();
 
-            int day = calendar.get(Calendar.DAY_OF_WEEK);
+        }
 
-            Log.d(TAG, "calculateAndAddLiveMarkers: Day "+day+"lat "+lat+"lng "+lng);
+        Calendar calendar = Calendar.getInstance();
 
-            switch (day) {
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-                case Calendar.MONDAY:
+        Log.d(TAG, "calculateAndAddLiveMarkers: Day " + day + "lat " + lat + "lng " + lng);
 
-                    if (isValidTime(detail, "Monday")) {
+        switch (day) {
 
-                        Gson gson = new Gson();
+            case Calendar.MONDAY:
 
-                        String json = gson.toJson(resultItem);
+                if (isValidTime(detail, "Monday")) {
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                    Gson gson = new Gson();
 
-                    }
+                    String json = gson.toJson(resultItem);
 
-                    break;
-                case Calendar.TUESDAY:
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
 
-                    if (isValidTime(detail, "Tuesday")) {
+                }
 
-                        Gson gson = new Gson();
+                break;
+            case Calendar.TUESDAY:
 
-                        String json = gson.toJson(resultItem);
+                if (isValidTime(detail, "Tuesday")) {
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
-                    }
+                    Gson gson = new Gson();
 
-                    break;
-                case Calendar.WEDNESDAY:
+                    String json = gson.toJson(resultItem);
 
-                    if (isValidTime(detail, "Wednesday")) {
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                }
 
-                        Gson gson = new Gson();
+                break;
+            case Calendar.WEDNESDAY:
 
-                        String json = gson.toJson(resultItem);
+                if (isValidTime(detail, "Wednesday")) {
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                    Gson gson = new Gson();
 
-                    }
+                    String json = gson.toJson(resultItem);
 
-                    break;
-                case Calendar.THURSDAY:
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
 
-                    if (isValidTime(detail, "Thursday")) {
+                }
 
-                        Gson gson = new Gson();
+                break;
+            case Calendar.THURSDAY:
 
-                        String json = gson.toJson(resultItem);
+                if (isValidTime(detail, "Thursday")) {
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                    Gson gson = new Gson();
 
-                    }
+                    String json = gson.toJson(resultItem);
 
-                    break;
-                case Calendar.FRIDAY:
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
 
-                    if (isValidTime(detail, "Friday")) {
+                }
 
-                        Gson gson = new Gson();
+                break;
+            case Calendar.FRIDAY:
 
-                        String json = gson.toJson(resultItem);
+                if (isValidTime(detail, "Friday")) {
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                    Gson gson = new Gson();
 
-                    }
+                    String json = gson.toJson(resultItem);
 
-                    break;
-                case Calendar.SATURDAY:
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+
+                }
+
+                break;
+            case Calendar.SATURDAY:
 
 
-                    if (isValidTime(detail, "Saturday")) {
+                if (isValidTime(detail, "Saturday")) {
 
-                        Log.d("callMarker", "call");
+                    Log.d("callMarker", "call");
 
-                        Gson gson = new Gson();
+                    Gson gson = new Gson();
 
-                        String json = gson.toJson(resultItem);
+                    String json = gson.toJson(resultItem);
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
 
-                    }
+                }
 
-                    break;
-                case Calendar.SUNDAY:
+                break;
+            case Calendar.SUNDAY:
 
-                    if (isValidTime(detail, "Sunday")) {
+                if (isValidTime(detail, "Sunday")) {
 
-                        Gson gson = new Gson();
+                    Gson gson = new Gson();
 
-                        String json = gson.toJson(resultItem);
+                    String json = gson.toJson(resultItem);
 
-                        addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
+                    addMarkerAsSelectedFilter(resultItem, detail, lat, lng, bmp);
 
-                    }
+                }
 
-                    break;
-            }
+                break;
+        }
 
 //           .icon(IconFactory.getInstance(getContext()).fromResource(R.drawable.marker_light_blue))
 
-            Log.d("getAllStoreResponse", "" + lat + "/" + lng);
+        Log.d("getAllStoreResponse", "" + lat + "/" + lng);
 
-//        } catch (Exception e) {
-//
-//            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
-//
-//        }
+        } catch (Exception e) {
+
+            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
+
+        }
 
     }
 
@@ -1965,7 +1969,6 @@ public class ExploreFragment extends Fragment implements
                             .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                             .setTitle(json)
                             .position(new LatLng(lat, lng)));
-
 
 
                 }
@@ -2016,191 +2019,196 @@ public class ExploreFragment extends Fragment implements
 
     private void calculateAndAddAllMarker(ResultItem resultItem) {
 
-//        try {
+        try {
 
-            Double lat = Double.parseDouble(resultItem.getBlat().toString());
+        Double lat = Double.parseDouble(resultItem.getBlat().toString());
 
-            Double lng = Double.parseDouble(resultItem.getBlng().toString());
+        Double lng = Double.parseDouble(resultItem.getBlng().toString());
 
-            Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
 
-            Bitmap bmp = Bitmap.createBitmap(220, 220, conf);
+        Bitmap bmp = Bitmap.createBitmap(220, 220, conf);
 
-            Canvas canvas1 = new Canvas(bmp);
+        Canvas canvas1 = new Canvas(bmp);
 
-            Paint color = new Paint();
+        Paint color = new Paint();
 
-            color.setTextSize(25);
+        color.setTextSize(25);
 
-            color.setColor(Color.BLACK);
+        color.setColor(Color.BLACK);
 
-            DetailModelForAddBar detail = new Gson().fromJson(resultItem.getBdetail(), DetailModelForAddBar.class);
+        DetailModelForAddBar detail = new Gson().fromJson(resultItem.getBdetail(), DetailModelForAddBar.class);
 
-            String markerPrice = getPrice(detail);
+        String markerPrice = getPrice(detail);
 
-            if (detail.getBarHas() != null && detail.getBarHas().get(1).isIsSelected()) {
+        if (detail.getBarHas() != null && detail.getBarHas().get(1).isIsSelected()) {
 
-                if (detail.getFreeTable() != null) {
+            if (detail.getFreeTable() != null) {
 
-                    if (detail.getFreeTable().isFreeTable()) {
-
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_red_rooftop), 0, 0, color);
-
-                    } else {
-                        if (detail.getBarAnounce() != null) {
-
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_blue_rooftop), 0, 0, color);
-
-                        } else {
-
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_simple_rooftop), 0, 0, color);
-                        }
-
-                    }
-
-
-                }else if (detail.getBarAnounce() != null) {
+                if (detail.getFreeTable().isFreeTable()) {
 
                     canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue_rooftop), 0, 0, color);
+                            R.drawable.marker_light_red_rooftop), 0, 0, color);
 
                 } else {
+                    if (detail.getBarAnounce() != null) {
 
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_blue_rooftop), 0, 0, color);
+
+                    } else {
+
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_simple_rooftop), 0, 0, color);
+                    }
 
                 }
+
+
+            } else if (detail.getBarAnounce() != null) {
+
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_blue_rooftop), 0, 0, color);
 
             } else {
 
-                if (detail.getFreeTable() != null) {
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_simple_rooftop), 0, 0, color);
 
-                    if (detail.getFreeTable().isFreeTable()) {
+            }
 
-                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                R.drawable.marker_light_red), 0, 0, color);
+        } else {
 
-                    } else {
-                        if (detail.getBarAnounce() != null) {
+            if (detail.getFreeTable() != null) {
 
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_blue), 0, 0, color);
-
-                        } else {
-
-                            canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.marker_light_simple), 0, 0, color);
-                        }
-
-                    }
-
-                }else if (detail.getBarAnounce() != null) {
+                if (detail.getFreeTable().isFreeTable()) {
 
                     canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_blue), 0, 0, color);
+                            R.drawable.marker_light_red), 0, 0, color);
 
                 } else {
+                    if (detail.getBarAnounce() != null) {
 
-                    canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
-                            R.drawable.marker_light_simple), 0, 0, color);
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_blue), 0, 0, color);
 
-                }
+                    } else {
 
-                if (markerPrice.length() == 1) {
-
-                    canvas1.drawText(markerPrice + "\u20ac", 105, 117, color);
-
-                } else if (markerPrice.length() == 2) {
-
-                    canvas1.drawText(markerPrice + "\u20ac", 98, 117, color);
-
-                } else if (markerPrice.length() == 3) {
-
-                    canvas1.drawText(markerPrice + "\u20ac", 90, 117, color);
+                        canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                                R.drawable.marker_light_simple), 0, 0, color);
+                    }
 
                 }
 
+            } else if (detail.getBarAnounce() != null) {
+
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_blue), 0, 0, color);
+
+            } else {
+
+                canvas1.drawBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.marker_light_simple), 0, 0, color);
 
             }
 
-            Gson gson = new Gson();
+            if (markerPrice.equals("0")) {
 
-            String json = gson.toJson(resultItem);
+                canvas1.drawText("", 105, 117, color);
 
-            if (SessionManager.getInstance().getFilter(context).equals("No")) {
 
-                Log.d(TAG, "calculateAndAddAllMarker: adding marker No");
-               markers.add(new MarkerOptions().title(resultItem.getBname())
-                       .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
-                       .setTitle(json)
-                       .position(new LatLng(lat, lng)));
+            } else if (markerPrice.length() == 1) {
 
-            } else if (SessionManager.getInstance().getFilter(context).equals("Both")) {
+                canvas1.drawText(markerPrice + "\u20ac", 105, 117, color);
 
-                if (detail.getBarHas() != null) {
+            } else if (markerPrice.length() == 2) {
 
-                    if (detail.getBarHas().get(0).isIsSelected() && detail.getBarHas().get(1).isIsSelected()) {
+                canvas1.drawText(markerPrice + "\u20ac", 98, 117, color);
 
-                        Log.d(TAG, "calculateAndAddAllMarker: adding marker Selected");
+            } else if (markerPrice.length() == 3) {
 
+                canvas1.drawText(markerPrice + "\u20ac", 90, 117, color);
+
+            }
+
+
+        }
+
+        Gson gson = new Gson();
+
+        String json = gson.toJson(resultItem);
+
+        if (SessionManager.getInstance().getFilter(context).equals("No")) {
+
+            Log.d(TAG, "calculateAndAddAllMarker: adding marker No");
+            markers.add(new MarkerOptions().title(resultItem.getBname())
+                    .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
+                    .setTitle(json)
+                    .position(new LatLng(lat, lng)));
+
+        } else if (SessionManager.getInstance().getFilter(context).equals("Both")) {
+
+            if (detail.getBarHas() != null) {
+
+                if (detail.getBarHas().get(0).isIsSelected() && detail.getBarHas().get(1).isIsSelected()) {
+
+                    Log.d(TAG, "calculateAndAddAllMarker: adding marker Selected");
+
+                    markers.add(new MarkerOptions().title(resultItem.getBname())
+                            .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
+                            .setTitle(json)
+                            .position(new LatLng(lat, lng)));
+                }
+
+            }
+
+        } else if (SessionManager.getInstance().getFilter(context).equals("BarWithTerrace")) {
+
+            if (detail.getBarHas() != null) {
+
+                if (detail.getBarHas().get(0).isIsSelected()) {
+
+                    Log.d(TAG, "calculateAndAddAllMarker: adding marker BarWithTerrace");
+                    markers.add(new MarkerOptions().title(resultItem.getBname())
+                            .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
+                            .setTitle(json)
+                            .position(new LatLng(lat, lng)));
+
+                }
+            }
+
+
+        } else if (SessionManager.getInstance().getFilter(context).equals("Rooftop")) {
+
+            if (detail.getBarHas() != null) {
+
+                if (detail.getBarHas().get(1).getTitle().equals("Rooftops")) {
+
+                    if (detail.getBarHas().get(1).isIsSelected()) {
+
+                        Log.d(TAG, "calculateAndAddAllMarker: adding marker Rooftops");
                         markers.add(new MarkerOptions().title(resultItem.getBname())
                                 .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
                                 .setTitle(json)
                                 .position(new LatLng(lat, lng)));
+
                     }
 
                 }
-
-            } else if (SessionManager.getInstance().getFilter(context).equals("BarWithTerrace")) {
-
-                if (detail.getBarHas() != null) {
-
-                    if (detail.getBarHas().get(0).isIsSelected()) {
-
-                        Log.d(TAG, "calculateAndAddAllMarker: adding marker BarWithTerrace");
-                        markers.add(new MarkerOptions().title(resultItem.getBname())
-                                .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
-                                .setTitle(json)
-                                .position(new LatLng(lat, lng)));
-
-                    }
-                }
-
-
-            } else if (SessionManager.getInstance().getFilter(context).equals("Rooftop")) {
-
-                if (detail.getBarHas() != null) {
-
-                    if (detail.getBarHas().get(1).getTitle().equals("Rooftops")) {
-
-                        if (detail.getBarHas().get(1).isIsSelected()) {
-
-                            Log.d(TAG, "calculateAndAddAllMarker: adding marker Rooftops");
-                            markers.add(new MarkerOptions().title(resultItem.getBname())
-                                    .icon(IconFactory.getInstance(getContext()).fromBitmap(bmp))
-                                    .setTitle(json)
-                                    .position(new LatLng(lat, lng)));
-
-                        }
-
-                    }
-                }
-
             }
+
+        }
 
 
 //           .icon(IconFactory.getInstance(getContext()).fromResource(R.drawable.marker_light_blue))
 
-            Log.d(TAG, "" + lat + "/" + lng);
+        Log.d(TAG, "" + lat + "/" + lng);
 
-//        } catch (Exception e) {
+        } catch (Exception e) {
 
-//            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
+            Log.d("getAllStoreResponse", "Error" + e.getLocalizedMessage());
 
-//        }
+        }
 
     }
 
@@ -2591,7 +2599,7 @@ public class ExploreFragment extends Fragment implements
                 });
     }
 
-    public void updateAsFilter(){
+    public void updateAsFilter() {
 
 
         if (getAllStoreResponse.getResult().size() > 0) {

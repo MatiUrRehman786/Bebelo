@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.buzzware.bebelo.Activities.ClaimBar;
 import com.buzzware.bebelo.Activities.EditBar;
+import com.buzzware.bebelo.Activities.Home;
 import com.buzzware.bebelo.Addapter.AdapterSectionRecycler;
 import com.buzzware.bebelo.Model.Child;
 import com.buzzware.bebelo.Model.SectionHeader;
@@ -103,9 +104,14 @@ public class ProfileFragment extends Fragment {
 
     private void getCurrentUserDetail() {
 
+
         loginResponse = SessionManager.getInstance().getUser(getContext());
 
+        binding.appBar.titleTV.setText(loginResponse.getResult().getBname());
+
         currentUserDetail = new Gson().fromJson(loginResponse.getResult().getBdetail(), DetailModelForAddBar.class);
+
+
 
         if (currentUserDetail.getFreeTable() != null) {
 

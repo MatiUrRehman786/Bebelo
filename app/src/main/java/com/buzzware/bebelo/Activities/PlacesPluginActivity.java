@@ -11,8 +11,12 @@ import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +46,10 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.ui.PlaceAutocompleteFragment;
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.ui.PlaceSelectionListener;
+import com.mapbox.mapboxsdk.plugins.places.picker.PlacePicker;
+import com.mapbox.mapboxsdk.plugins.places.picker.model.PlacePickerOptions;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
@@ -74,12 +82,18 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
     private PermissionsManager permissionsManager;
 
-    TextView doneBtn,searchedTV,cancelBtn;
+    TextView searchedTV;
     View view;
 
     LatLng latLng=null;
 
     String type="AddBar";
+
+    PlaceAutocompleteFragment autocompleteFragment;
+
+    ActivityPlacesPluginBinding binding;
+
+    private LinearLayout containerLL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +103,19 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
         setContentView(R.layout.activity_places_plugin);
 
+        binding=ActivityPlacesPluginBinding.inflate(getLayoutInflater());
+
+        autocompleteFragment = PlaceAutocompleteFragment.newInstance(getString(R.string.mapbox_access_token));
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.add(R.id.container, autocompleteFragment,null);
+
+        transaction.commit();
+
+        containerLL = findViewById(R.id.containerLL);
+
         mapView = findViewById(R.id.mapView);
-
-        doneBtn = findViewById(R.id.doneNewBtn);
-
-        cancelBtn = findViewById(R.id.cancelBtn);
 
         view = findViewById(R.id.lineView);
 
@@ -114,11 +136,14 @@ public class PlacesPluginActivity extends AppCompatActivity implements
         Intent intent=getIntent();
         type=intent.getStringExtra("type");
 
+        binding.appBar.searchBadge.setText("");
+
+
     }
 
     private void setListener() {
 
-        doneBtn.setOnClickListener(v->{
+        binding.appBar.doneBtn.setOnClickListener(v->{
 
             if(latLng!=null){
 
@@ -133,7 +158,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
             }
         });
-        cancelBtn.setOnClickListener(v->{
+        binding.appBar.backIV.setOnClickListener(v->{
 
             finish();
 
@@ -170,32 +195,84 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
         findViewById(R.id.searchTV).setOnClickListener(view -> {
 
-            Intent intent = new PlaceAutocomplete.IntentBuilder()
-                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
-                    .placeOptions(PlaceOptions.builder()
-                            .backgroundColor(Color.parseColor(getString(R.color.white)))
-                            .limit(10)
-                            .build(PlaceOptions.MODE_CARDS))
-                    .build(PlacesPluginActivity.this);
+//            Intent intent = new PlaceAutocomplete.IntentBuilder()
+//                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
+//                    .placeOptions(PlaceOptions.builder()
+//                            .backgroundColor(Color.parseColor(getString(R.color.white)))
+//                            .limit(10)
+//                            .build(PlaceOptions.MODE_FULLSCREEN))
+//                    .build(PlacesPluginActivity.this);
+//
+//            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
 
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
 
-        });
+            containerLL.setVisibility(View.VISIBLE);
+            binding.searchTVCL.setVisibility(View.INVISIBLE);
 
-        findViewById(R.id.lineView).setOnClickListener(view -> {
 
-            Intent intent = new PlaceAutocomplete.IntentBuilder()
-                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
-                    .placeOptions(PlaceOptions.builder()
-                            .backgroundColor(Color.parseColor(getString(R.color.white)))
-                            .limit(10)
-                            .build(PlaceOptions.MODE_CARDS))
-                    .build(PlacesPluginActivity.this);
 
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+
 
         });
 
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(CarmenFeature carmenFeature) {
+                Toast.makeText(PlacesPluginActivity.this,
+                        carmenFeature.text(), Toast.LENGTH_LONG).show();
+
+                mapboxMap.clear();
+
+                containerLL.setVisibility(View.INVISIBLE);
+                binding.searchTVCL.setVisibility(View.VISIBLE);
+
+                mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+                        new CameraPosition.Builder()
+                                .target(new LatLng(carmenFeature.center().latitude(),
+                                        (carmenFeature.center().longitude())))
+                                .zoom(14)
+                                .build()), 4000);
+
+                        Marker currentLocation = mapboxMap.addMarker(new MarkerOptions().title("00")
+                .icon(IconFactory.getInstance(PlacesPluginActivity.this).fromResource(R.drawable.marker_red))
+                .position(new LatLng(carmenFeature.center().latitude(),
+                        (carmenFeature.center().longitude()))));
+
+                latLng=new LatLng(new LatLng(carmenFeature.center().latitude(),
+                        (carmenFeature.center().longitude())));
+
+
+                Geocoder geocoder;
+
+                List<Address> addresses = null;
+
+                geocoder = new Geocoder(PlacesPluginActivity.this, Locale.getDefault());
+
+                try {
+
+                    addresses = geocoder.getFromLocation(latLng.getLatitude(), latLng.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+
+                String address = addresses.get(0).getAddressLine(0);
+
+                searchedTV.setText(address);
+
+                containerLL.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onCancel() {
+
+                containerLL.setVisibility(View.INVISIBLE);
+                binding.searchTVCL.setVisibility(View.VISIBLE);
+
+            }
+        });
         //to add static search location or favorite
         //.addInjectedFeature(home)
         //.addInjectedFeature(work)

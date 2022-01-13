@@ -17,6 +17,11 @@ import com.buzzware.bebelo.R;
 import com.buzzware.bebelo.classes.Constant;
 import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.ActivityHomeBinding;
+import com.buzzware.bebelo.eventBusModel.LoadProfileEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class Home extends AppCompatActivity {
 
@@ -138,6 +143,28 @@ public class Home extends AppCompatActivity {
 
         SetSelectedTab(0);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoadProfileEvent event) {
+
+        checkExploreLoaded = false;
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
+
+        SetSelectedTab(2);
     }
 
     private void setSettingFragment() {

@@ -16,7 +16,7 @@
             android:id="@+id/bottleIV"
             android:layout_width="@dimen/_58sdp"
             android:layout_height="@dimen/_59sdp"
-            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:adjustViewBounds="true"
             android:background="@color/white"

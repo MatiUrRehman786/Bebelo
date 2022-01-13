@@ -25,6 +25,7 @@ import com.buzzware.bebelo.classes.Constant;
 import com.buzzware.bebelo.classes.SessionManager;
 import com.buzzware.bebelo.databinding.FragmentSettingsBinding;
 import com.buzzware.bebelo.eventBusModel.GetAllStoreEvent;
+import com.buzzware.bebelo.eventBusModel.LoadProfileEvent;
 import com.buzzware.bebelo.eventBusModel.UpdateAsFilterEvent;
 import com.buzzware.bebelo.retrofit.Login.LoginResponse;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -84,6 +85,11 @@ public class SettingsFragment extends Fragment {
 
         binding.locationAllowSetting.setOnClickListener(v->{
             checkCameraPermission();
+        });
+
+        binding.myBarSimpleBtn.setOnClickListener(v->{
+            EventBus.getDefault().post(new LoadProfileEvent());
+
         });
 
     }

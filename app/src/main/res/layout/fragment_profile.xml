@@ -8,9 +8,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include
             android:id="@+id/appBar"
-            layout="@layout/bar_profile_app_bar"/>
+            layout="@layout/bar_profile_app_bar" />
 
         <ScrollView
             android:fillViewport="true"
