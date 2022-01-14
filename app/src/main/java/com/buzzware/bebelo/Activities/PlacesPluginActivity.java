@@ -11,9 +11,11 @@ import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -82,7 +84,10 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
     private PermissionsManager permissionsManager;
 
-    TextView searchedTV;
+    TextView searchedTV,doneBtn;
+
+    private ImageView backIV;
+
     View view;
 
     LatLng latLng=null;
@@ -91,7 +96,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
     PlaceAutocompleteFragment autocompleteFragment;
 
-    ActivityPlacesPluginBinding binding;
+    ConstraintLayout searchTVCL;
 
     private LinearLayout containerLL;
 
@@ -101,9 +106,9 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
 
-        setContentView(R.layout.activity_places_plugin);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        binding=ActivityPlacesPluginBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_places_plugin);
 
         autocompleteFragment = PlaceAutocompleteFragment.newInstance(getString(R.string.mapbox_access_token));
 
@@ -116,6 +121,12 @@ public class PlacesPluginActivity extends AppCompatActivity implements
         containerLL = findViewById(R.id.containerLL);
 
         mapView = findViewById(R.id.mapView);
+
+        doneBtn = findViewById(R.id.doneBtn);
+
+        backIV = findViewById(R.id.backIV);
+
+        searchTVCL = findViewById(R.id.searchTVCL);
 
         view = findViewById(R.id.lineView);
 
@@ -136,14 +147,13 @@ public class PlacesPluginActivity extends AppCompatActivity implements
         Intent intent=getIntent();
         type=intent.getStringExtra("type");
 
-        binding.appBar.searchBadge.setText("");
 
 
     }
 
     private void setListener() {
 
-        binding.appBar.doneBtn.setOnClickListener(v->{
+        doneBtn.setOnClickListener(v->{
 
             if(latLng!=null){
 
@@ -158,7 +168,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
             }
         });
-        binding.appBar.backIV.setOnClickListener(v->{
+        backIV.setOnClickListener(v->{
 
             finish();
 
@@ -207,7 +217,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
 
 
             containerLL.setVisibility(View.VISIBLE);
-            binding.searchTVCL.setVisibility(View.INVISIBLE);
+            searchTVCL.setVisibility(View.INVISIBLE);
 
 
 
@@ -224,7 +234,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
                 mapboxMap.clear();
 
                 containerLL.setVisibility(View.INVISIBLE);
-                binding.searchTVCL.setVisibility(View.VISIBLE);
+                searchTVCL.setVisibility(View.VISIBLE);
 
                 mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
                         new CameraPosition.Builder()
@@ -234,7 +244,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
                                 .build()), 4000);
 
                         Marker currentLocation = mapboxMap.addMarker(new MarkerOptions().title("00")
-                .icon(IconFactory.getInstance(PlacesPluginActivity.this).fromResource(R.drawable.marker_red))
+                .icon(IconFactory.getInstance(PlacesPluginActivity.this).fromResource(R.drawable.marker_red_new))
                 .position(new LatLng(carmenFeature.center().latitude(),
                         (carmenFeature.center().longitude()))));
 
@@ -269,7 +279,7 @@ public class PlacesPluginActivity extends AppCompatActivity implements
             public void onCancel() {
 
                 containerLL.setVisibility(View.INVISIBLE);
-                binding.searchTVCL.setVisibility(View.VISIBLE);
+                searchTVCL.setVisibility(View.VISIBLE);
 
             }
         });

@@ -2027,7 +2027,7 @@ public class ExploreFragment extends Fragment implements
 
         Bitmap.Config conf = Bitmap.Config.ARGB_8888;
 
-        Bitmap bmp = Bitmap.createBitmap(220, 220, conf);
+        Bitmap bmp = Bitmap.createBitmap(200, 200, conf);
 
         Canvas canvas1 = new Canvas(bmp);
 
